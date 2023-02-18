@@ -16,7 +16,7 @@ type EventCardprops = {
 
 function EventCard(props: EventCardprops) {
 
-  function handlechangeFavorite() {
+  function handleToggleFavorite() {
   }
   function handleEdit() {
   }
@@ -82,7 +82,7 @@ function EventCard(props: EventCardprops) {
             {props.owner && <IconButton onClick={handleEdit}>
               <Icon28EditOutline />
             </IconButton>}
-            <IconButton onClick={handlechangeFavorite}>
+            <IconButton onClick={handleToggleFavorite}>
               <Icon28LikeOutline />
             </IconButton>
             {!props.owner &&<IconButton onClick={handleShare}>

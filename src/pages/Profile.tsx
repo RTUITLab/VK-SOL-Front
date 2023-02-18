@@ -50,7 +50,8 @@ function Profile({ nav }: ProfileProps) {
           api.getAddress(uuid)
             .then(data => {
               //console.log('got',data.address)
-              setUser({ ...user, walletAddress: data.address })
+              setUser({ ...user, walletAddress: data.address, wallet:provider })
+              console.log(provider)
             })
             .catch(err => console.error('err', err))
         })

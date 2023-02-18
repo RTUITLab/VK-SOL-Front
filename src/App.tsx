@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   AdaptivityProvider,
   AppRoot,
@@ -19,6 +19,7 @@ import Events from './pages/Events'
 import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Tickets from './pages/Tickets'
+import Collections from './pages/Collections'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import EventPage from './pages/EventPage/EventPage'
 
@@ -62,6 +63,9 @@ export const App: React.FC = () => {
               </View>
               <View nav='/profile'>
                 <Profile nav='/' />
+              </View>
+              <View nav='/collections'>
+                <Collections nav='/' />
               </View>
             </Navigation>
           </AppRoot>

@@ -35,7 +35,6 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
       <Spacing />
       <Group mode='plain'>
         <CardGrid size='l'>
-
           {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : data?.map((e) =>
             <EventCard id={e._id} time={'18:00'} image={'https://levandrovskiy.ru' + e.cover} date={e.date} description={e.description} eventName={e.name} address={e.place} key={e._id} />
           )}

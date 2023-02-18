@@ -4,7 +4,7 @@ import { Snackbar } from '../types'
 
 export const vkUserAtom = atom<UserInfo>({} as UserInfo, 'vkUser')
 
-export const userAtom = atom<StoreData>({ isAdmin: true, walletAddress: '' }, 'user')
+export const userAtom = atom<StoreData>({ isAdmin: false, walletAddress: '' }, 'user')
 
 export const eventIdAtom = atom<string>('', 'eventID')
 

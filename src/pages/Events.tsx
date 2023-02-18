@@ -22,7 +22,8 @@ function Events({ nav }: PanelProps) {
           >
             <Icon28AddSquareOutline />
           </PanelHeaderButton>
-        }>
+        }
+      >
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
       {isLoading && <Spinner size={'large'} style={{ margin: '20px 0' }} />}
@@ -39,7 +40,7 @@ function Events({ nav }: PanelProps) {
           time={item.date.split('T')[1]}
           date={item.date.split('T')[0]}
           owner={true}
-        />) : "здесь пока пусто"}
+        />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет мероприятий'}</div>}
       </CardGrid>
     </Panel>
   )

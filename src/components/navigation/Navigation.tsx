@@ -7,7 +7,7 @@ import {
   ViewWidth
 } from '@vkontakte/vkui'
 import { NavigationMenu } from './NavigationMenu'
-import { Icon28CalendarOutline, Icon28HeartCircleOutline, Icon28InfoOutline, Icon28NameTagOutline, Icon28Profile, Icon28TicketOutline, Icon28UserCircleOutline } from '@vkontakte/icons'
+import { Icon28CalendarOutline, Icon28HeartCircleOutline, Icon28InfoOutline, Icon28NameTagOutline, Icon28Profile, Icon28SortOutline, Icon28TicketOutline, Icon28UserCircleOutline } from '@vkontakte/icons'
 import { NavigationTabbar } from './NavigationTabbar'
 import { Modals } from '../../modals'
 import { NavigationItem } from '../../types'
@@ -27,6 +27,7 @@ const userItems: NavigationItem[] = [
   { to: '/', text: 'Главная', icon: <Icon28NameTagOutline /> },
   { to: '/tickets', text: 'Мои Билеты', icon: <Icon28TicketOutline /> },
   { to: '/favorite', text: 'Избранное', icon: <Icon28HeartCircleOutline /> },
+  { to: '/collections', text: 'Коллекции', icon: <Icon28SortOutline /> },
   { to: '/profile', text: 'Профиль', icon: <Icon28Profile /> }
 ]
 

@@ -1,8 +1,9 @@
-import { Icon16Add, Icon16ClockCircleFill, Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon20CalendarCircleFillRed, Icon28CalendarOutline, Icon28Delete, Icon28DeleteOutline, Icon28EditOutline, Icon28HeartCircleOutline, Icon28Like, Icon28LikeOutline, Icon28ShareOutline } from '@vkontakte/icons'
+import { Icon16Add, Icon16ClockCircleFill, Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon20CalendarCircleFillRed, Icon28CalendarOutline, Icon28Delete, Icon28DeleteOutline, Icon28EditOutline, Icon28HeartCircleOutline, Icon28Like, Icon28LikeCircleFillRed, Icon28LikeFillRed, Icon28LikeOutline, Icon28ShareOutline } from '@vkontakte/icons'
+import bridge from '@vkontakte/vk-bridge'
 import { Button, Caption, Card, Cell, Group, IconButton, MiniInfoCell, SimpleCell, SplitCol, Text, Title } from '@vkontakte/vkui'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './eventcard.css'
-
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 type EventCardprops = {
     image: string,
     eventName: string,
@@ -11,21 +12,37 @@ type EventCardprops = {
     time: string,
     address: string,
     owner?: boolean
-
+    id: string
 }
 
 function EventCard(props: EventCardprops) {
+  const queryClient = useQueryClient()
 
-  function handleToggleFavorite() {
-  }
+  const { data } = useQuery({ queryKey:[ 'like', { id:props.id }], queryFn: 
+    ()=>bridge.send('VKWebAppStorageGet', {
+      keys: ['liked'+props.id.toString()] })
+      .then((data) => 
+        (data.keys[0].value.toString()==='true')
+      ) })
+
+  const { mutate } = useMutation({ mutationFn: ()=> bridge.send('VKWebAppStorageSet', {
+    key: 'liked'+props.id,
+    value: (!data).toString()
+  }),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['like', { id:props.id }] })
+  } })
+
   function handleEdit() {
+    return undefined
   }
 
   function handleDelete() {
-
+    return undefined
   }
 
-  function handleShare() {}
+  function handleShare() {
+    return undefined}
 
 
   return (
@@ -82,8 +99,8 @@ function EventCard(props: EventCardprops) {
             {props.owner && <IconButton onClick={handleEdit}>
               <Icon28EditOutline />
             </IconButton>}
-            <IconButton onClick={handleToggleFavorite}>
-              <Icon28LikeOutline />
+            <IconButton onClick={()=>{mutate()}}>
+              {data ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>
             {!props.owner &&<IconButton onClick={handleShare}>
               <Icon28ShareOutline />

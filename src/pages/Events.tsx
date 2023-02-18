@@ -18,7 +18,8 @@ function Events({ nav }: PanelProps) {
           >
             <Icon28AddSquareOutline />
           </PanelHeaderButton>
-        }>
+        }
+      >
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
       {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : 'nothing here now'//data.map((e)=>e)

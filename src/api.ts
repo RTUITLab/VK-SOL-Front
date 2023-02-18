@@ -14,10 +14,7 @@ export type APIEventType = {
 }
 
 export interface ExchangeRequest {
-  users: Array<{
-    id: string,
-    items: string[]
-  }>
+  tickets: string[]
 }
 
 

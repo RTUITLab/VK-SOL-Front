@@ -1,5 +1,5 @@
 import React from 'react'
-import { Cell, Group, List, Panel, PanelHeader, PanelHeaderBack, PanelProps, Spacing } from '@vkontakte/vkui'
+import { Cell, Group, List, Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, PanelProps, Spacing } from '@vkontakte/vkui'
 import { back } from '@cteamdev/router'
 import Ticket from '../components/Ticket/Ticket'
 
@@ -7,7 +7,7 @@ function Tickets({ nav }: PanelProps) {
   return (
     <Panel nav={nav}>
       <PanelHeader >
-        Мои Билеты
+        <PanelHeaderContent>Мои Билеты</PanelHeaderContent>
       </PanelHeader>
       <Group>
         <List>

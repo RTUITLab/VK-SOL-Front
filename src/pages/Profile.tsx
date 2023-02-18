@@ -17,7 +17,7 @@ import React from 'react'
 import { useAtomValue, useSetAtomState } from '@mntm/precoil'
 import { userAtom, vkUserAtom } from '../store'
 import { Icon28AddOutline, Icon28AddSquareOutline } from '@vkontakte/icons'
-import { UserInfo } from '@vkontakte/vk-bridge'
+import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import { v4 as uuidv4 } from 'uuid'
 import { api } from '../api'
 
@@ -49,8 +49,12 @@ function Profile({ nav }: ProfileProps) {
         .then(() => {
           api.getAddress(uuid)
             .then(data => {
-              //console.log('got',data.address)
-              setUser({ ...user, walletAddress: data.address, wallet:provider })
+              setUser({ ...user, walletAddress: data.address })
+              bridge.send('VKWebAppStorageSet', {
+                key: 'address',
+                value: data.address
+              })
+                .catch(() => console.log('err saving address in storage'))
               console.log(provider)
             })
             .catch(err => console.error('err', err))

@@ -13,7 +13,7 @@ import { Home } from './pages'
 import { Navigation } from './components/navigation'
 import { getPlatform } from './utils'
 import { useAtomValue, useSetAtomState } from '@mntm/precoil'
-import { vkUserAtom } from './store'
+import { userAtom, vkUserAtom } from './store'
 import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import Events from './pages/Events'
 import Favorites from './pages/Favorites'
@@ -28,11 +28,27 @@ const queryClient = new QueryClient()
 export const App: React.FC = () => {
   const platform: PlatformType = getPlatform()
   const setVkUser = useSetAtomState(vkUserAtom)
+  const user = useAtomValue(userAtom)
+  const setUser = useSetAtomState(userAtom)
 
   useEffect(() => {
     const load = async () => {
       const vkUser: UserInfo = await bridge.send('VKWebAppGetUserInfo')
       setVkUser(vkUser)
+      bridge.send('VKWebAppStorageGet', {
+        keys: [
+          'address'
+        ] })
+        .then((data) => { 
+          if (data.keys) {
+            console.log('walletAddress successfully restored')
+            setUser({ ...user, walletAddress: data.keys[0].value.toString() })
+          }
+        })
+        .catch((error) => {
+          // Ошибка
+          console.log(error)
+        })
     }
     load()
   }, [])

@@ -1,21 +1,22 @@
-import { back, replace, useCurrentState } from '@cteamdev/router';
+import { back, push, replace, useCurrentState } from '@cteamdev/router';
 import { useAtomValue } from '@mntm/precoil';
 import { useQuery } from '@tanstack/react-query';
-import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon28LikeOutline, Icon28UserOutline } from '@vkontakte/icons';
-import { Button, Cell, Counter, Group, Headline, IconButton, MiniInfoCell, Panel, PanelHeader, PanelHeaderBack, Spinner, TabsItem, Title } from '@vkontakte/vkui';
-import React from 'react';
+import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon28AddOutline, Icon28CopyOutline, Icon28LikeOutline, Icon28UserOutline } from '@vkontakte/icons';
+import { Button, Cell, CellButton, Counter, Div, Group, Header, Headline, IconButton, MiniInfoCell, Panel, PanelHeader, PanelHeaderBack, SimpleCell, Spinner, SplitCol, SplitLayout, TabsItem, Title } from '@vkontakte/vkui';
+import { func } from 'prop-types';
+import React, { useRef } from 'react';
 import { api, APIEventType } from '../../api';
 import { eventIdAtom } from '../../store';
 import './eventpage.css'
 
 type EventPagetypes = {
-    name: string,
     nav: string
 }
 
 function EventPage(props: EventPagetypes) {
 
     const eventId = useAtomValue(eventIdAtom)
+    const ref = useRef('')
 
     const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event'], queryFn: () => api.getEventById(eventId) })
 
@@ -64,7 +65,7 @@ function EventPage(props: EventPagetypes) {
                                     target={'_blank'}
                                     href={`https://yandex.ru/maps/213/moscow/search/${data.place}`} rel='noreferrer'
                                 >
-                                    <Headline style={{ color: '#2688EB' }} weight='semibold'>
+                                    <Headline style={{ color: '#2688EB', maxWidth: '100px' }} weight='semibold'>
                                         {data.place}
                                     </Headline>
 
@@ -91,6 +92,25 @@ function EventPage(props: EventPagetypes) {
                     </div>
                 </Group>
             }
+
+            <Group>
+                <Div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Title>Вайтлист</Title>
+                    <CellButton
+                        onClick={() => push('/events/?modal=wallet')}
+                        before={<Icon28AddOutline />}>Добавить</CellButton>
+                </Div>
+                {
+                    data && data.white_list.map((item, index) => <SimpleCell key={index} after={<Icon28CopyOutline />}>
+                        {item}
+                    </SimpleCell>)
+                }
+                {
+                    data && data.white_list.length === 0 && <SimpleCell>Вайтлист пока пуст</SimpleCell>
+                }
+
+
+            </Group>
 
 
 

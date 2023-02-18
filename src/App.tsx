@@ -49,7 +49,6 @@ export const App: React.FC = () => {
               <View nav={'/current_event'}>
                 <EventPage
                   nav='/'
-                  name='event name'
                 />
               </View>
               <View nav='/events'>

@@ -22,7 +22,7 @@ function Events({ nav }: PanelProps) {
       >
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
-      {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : 'nothing here now'//data.map((e)=>e)
+      {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : <div style={{textAlign: 'center', margin: 20}}>{'У вас пока нет мероприятий'}</div> //data.map((e)=>e)
 
       }
     </Panel>

@@ -1,21 +1,27 @@
 import { Avatar, Group, Header, Panel, PanelHeader, PanelProps, SimpleCell, Switch } from '@vkontakte/vkui';
 import React from 'react';
 import { UserInfo } from '@vkontakte/vk-bridge'
-import { useAtomValue } from '@mntm/precoil'
-import { vkUserAtom } from '../store'
+import { useAtomValue, useSetAtomState } from '@mntm/precoil'
+import { userAtom, vkUserAtom } from '../store'
 import { Icon28AddOutline, Icon28AddSquareOutline } from '@vkontakte/icons';
 
 type ProfileProps = {
-    isAdmin: boolean
     nav: string | undefined
     setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Profile({ nav, isAdmin, setIsAdmin }: ProfileProps) {
+function Profile({ nav }: ProfileProps) {
     const vkUser: UserInfo = useAtomValue(vkUserAtom)
+    const user = useAtomValue(userAtom)
+    const setUser = useSetAtomState(userAtom)
 
     function handleChange() {
-        setIsAdmin(prev => !prev)
+        // setIsAdmin(prev => !prev)
+        setUser({
+            ...user,
+            isAdmin: !user.isAdmin
+        })
+
     }
 
     function handleAddWallet() {
@@ -35,7 +41,7 @@ function Profile({ nav, isAdmin, setIsAdmin }: ProfileProps) {
                 </SimpleCell>
 
                 <SimpleCell
-                    before={<Switch onChange={handleChange} checked={isAdmin} />}
+                    before={<Switch onChange={handleChange} checked={user.isAdmin} />}
                 >
                     Я администратор
                 </SimpleCell>

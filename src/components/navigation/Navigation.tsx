@@ -14,6 +14,8 @@ import { NavigationItem } from '../../types'
 import { CustomSnackbar } from '../snackbar/CustomSnackbar'
 import { Structure, Epic } from '@cteamdev/router'
 import { Popouts } from '../../popouts'
+import { userAtom } from '../../store'
+import { useAtomValue } from '@mntm/precoil'
 
 const adminItems: NavigationItem[] = [
   { to: '/', text: 'Главная', icon: <Icon28NameTagOutline /> },
@@ -30,14 +32,16 @@ const userItems: NavigationItem[] = [
 
 type NavigationProps = {
   children: ReactNode,
-  isAdmin: boolean
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ children, isAdmin }: NavigationProps) => {
+export const Navigation: React.FC<NavigationProps> = ({ children }: NavigationProps) => {
   const { viewWidth } = useAdaptivity()
   const isDesktop: boolean = (viewWidth ?? 0) >= ViewWidth.SMALL_TABLET
 
-  const items = isAdmin ? adminItems : userItems
+  // const items = isAdmin ? adminItems : userItems
+  const user = useAtomValue(userAtom)
+  const items = user.isAdmin ? adminItems : userItems
+
 
   return (
     <Structure>

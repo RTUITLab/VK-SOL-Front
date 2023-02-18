@@ -1,6 +1,8 @@
+import { useAtomValue } from '@mntm/precoil';
 import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon28QrCodeOutline } from '@vkontakte/icons';
 import { Caption, IconButton, MiniInfoCell, Text, Title } from '@vkontakte/vkui';
 import React from 'react';
+import { userAtom } from '../../store';
 import './ticket.css'
 
 type TicketProps = {

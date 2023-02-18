@@ -10,7 +10,7 @@ export type APIEventType = {
   name: string,
   place: string,
   user_id: string,
-  white_list: number[]
+  white_list: string[]
 }
 
 export interface ExchangeRequest {
@@ -42,5 +42,7 @@ export const api = {
 
   addToWhiteList: (id: string, user_id: string) => fetch(`https://levandrovskiy.ru/api/event/${id}/allow/${user_id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
 
-  createExchange: (data: ExchangeRequest) => fetch('https://levandrovskiy.ru/api/exchange', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json())
+  createExchange: (data: ExchangeRequest) => fetch('https://levandrovskiy.ru/api/exchange', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json()),
+
+  getTicket: (event_id: string, user_id: string) => fetch('https://levandrovskiy.ru/api/ticket', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id, event_id }) }).then((response) => response.json()),
 }

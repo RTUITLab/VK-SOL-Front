@@ -1,12 +1,12 @@
 import { back, push, replace, useCurrentState } from '@cteamdev/router';
 import { useAtomValue } from '@mntm/precoil';
-import { useQuery } from '@tanstack/react-query';
-import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon28AddOutline, Icon28CopyOutline, Icon28LikeOutline, Icon28UserOutline } from '@vkontakte/icons';
-import { Button, Cell, CellButton, Counter, Div, Group, Header, Headline, IconButton, MiniInfoCell, Panel, PanelHeader, PanelHeaderBack, SimpleCell, Spinner, SplitCol, SplitLayout, TabsItem, Title } from '@vkontakte/vkui';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon24Done, Icon24Error, Icon28AddOutline, Icon28CopyOutline, Icon28LikeOutline, Icon28UserOutline } from '@vkontakte/icons';
+import { Button, Cell, CellButton, Counter, Div, Group, Header, Headline, IconButton, MiniInfoCell, Panel, PanelHeader, PanelHeaderBack, SimpleCell, Snackbar, Spinner, SplitCol, SplitLayout, TabsItem, Title } from '@vkontakte/vkui';
 import { func } from 'prop-types';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { api, APIEventType } from '../../api';
-import { eventIdAtom } from '../../store';
+import { eventIdAtom, userAtom } from '../../store';
 import './eventpage.css'
 
 type EventPagetypes = {
@@ -16,12 +16,43 @@ type EventPagetypes = {
 function EventPage(props: EventPagetypes) {
 
     const eventId = useAtomValue(eventIdAtom)
-    const ref = useRef('')
+    const user = useAtomValue(userAtom)
 
     const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event'], queryFn: () => api.getEventById(eventId) })
+    const { mutate, error } = useMutation({ mutationKey: ['get_ticket'], mutationFn: () => api.getTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
+
+
+
+    const [snackbar, setSnackbar] = useState<JSX.Element | null>(null)
+    const successSnackbar = <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon24Done />}
+    >
+        Билет успешно приобретён
+    </Snackbar>
+    const errorSnackbar = <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon24Error />}
+    >
+        Ошбка при приобретении билета
+    </Snackbar>
+
 
     function handlechangeFavorite() {
 
+    }
+
+    function handleError() {
+        setSnackbar(errorSnackbar)
+        console.log('error', error);
+    }
+    function handleSuccess() {
+        setSnackbar(successSnackbar)
+        console.log('success');
+    }
+
+    function handleGetTicket() {
+        mutate()
     }
 
     return (
@@ -72,14 +103,27 @@ function EventPage(props: EventPagetypes) {
                                 </a>
 
                             </MiniInfoCell>
-                            <Button
-                                size='l'
-                                appearance='positive'
-                                mode='outline'
+                            {
+                                data.white_list.includes(user.walletAddress) ?
+                                    <Button
+                                        size='l'
+                                        appearance='accent'
+                                        mode='secondary'
+                                        onClick={handleGetTicket}
+                                    >
+                                        Получить билет
+                                    </Button>
+                                    :
+                                    <Button
+                                        size='l'
+                                        appearance='positive'
+                                        mode='outline'
+                                    >
+                                        Купить билет
+                                    </Button>
+                            }
 
-                            >
-                                Купить билет
-                            </Button>
+
                         </div>
                         <div className='event-card__secondary'>
                             <IconButton onClick={handlechangeFavorite}>
@@ -96,9 +140,9 @@ function EventPage(props: EventPagetypes) {
             <Group>
                 <Div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Title>Вайтлист</Title>
-                    <CellButton
+                    {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
                         onClick={() => push('/events/?modal=wallet')}
-                        before={<Icon28AddOutline />}>Добавить</CellButton>
+                        before={<Icon28AddOutline />}>Добавить</CellButton> : null}
                 </Div>
                 {
                     data && data.white_list.map((item, index) => <SimpleCell key={index} after={<Icon28CopyOutline />}>
@@ -108,13 +152,10 @@ function EventPage(props: EventPagetypes) {
                 {
                     data && data.white_list.length === 0 && <SimpleCell>Вайтлист пока пуст</SimpleCell>
                 }
-
-
             </Group>
-
-
-
-
+            {
+                snackbar
+            }
         </Panel >
     );
 }

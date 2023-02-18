@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Banner, Button, FormItem, FormLayout, FormStatus, Group, Input, ModalCard, ModalCardProps, Spinner, SplitCol, SplitLayout } from '@vkontakte/vkui'
-import { Icon56GhostOutline } from '@vkontakte/icons'
+import { Banner, Button, FormItem, FormLayout, Input, ModalCard, ModalCardProps, Spinner, SplitCol, SplitLayout } from '@vkontakte/vkui'
 import { back } from '@cteamdev/router'
 import { useAtomValue } from '@mntm/precoil'
 import { userAtom } from '../store'
@@ -59,7 +58,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
       setError('')
       back()
     } else {
-      setError('ID кошелька пустое')
+      setError('Привяжите кошелёк на вкладке Профиль')
     }
 
   }

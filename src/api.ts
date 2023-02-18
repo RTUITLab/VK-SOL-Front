@@ -9,5 +9,8 @@ export const api = {
     fetch(`https://levandrovskiy.ru/api/auth/${state}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
 
   getAllEvents: () => fetch('https://levandrovskiy.ru/api/event', { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then(response => response.json()),
+  
+  getAllTickets: () => fetch('https://levandrovskiy.ru/api/ticket', { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then(response => response.json()),
+
   createEvent: (data: EventType) => fetch('https://levandrovskiy.ru/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json())
 }

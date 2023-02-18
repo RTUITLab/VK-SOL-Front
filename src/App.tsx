@@ -19,11 +19,13 @@ import Events from './pages/Events'
 import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Tickets from './pages/Tickets'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export const App: React.FC = () => {
   const platform: PlatformType = getPlatform()
   const setVkUser = useSetAtomState(vkUserAtom)
-
 
   useEffect(() => {
     const load = async () => {
@@ -34,28 +36,30 @@ export const App: React.FC = () => {
   }, [])
 
   return (
-    <ConfigProvider platform={platform}>
-      <AdaptivityProvider>
-        <AppRoot>
-          <Navigation >
-            <View nav='/'>
-              <Home nav='/' />
-            </View>
-            <View nav='/events'>
-              <Events nav='/' />
-            </View>
-            <View nav='/favorite'>
-              <Favorites nav='/' />
-            </View>
-            <View nav='/tickets'>
-              <Tickets nav='/' />
-            </View>
-            <View nav='/profile'>
-              <Profile nav='/' />
-            </View>
-          </Navigation>
-        </AppRoot>
-      </AdaptivityProvider>
-    </ConfigProvider>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider platform={platform}>
+        <AdaptivityProvider>
+          <AppRoot>
+            <Navigation >
+              <View nav='/'>
+                <Home nav='/' />
+              </View>
+              <View nav='/events'>
+                <Events nav='/' />
+              </View>
+              <View nav='/favorite'>
+                <Favorites nav='/' />
+              </View>
+              <View nav='/tickets'>
+                <Tickets nav='/' />
+              </View>
+              <View nav='/profile'>
+                <Profile nav='/' />
+              </View>
+            </Navigation>
+          </AppRoot>
+        </AdaptivityProvider>
+      </ConfigProvider>
+    </QueryClientProvider>
   )
 }

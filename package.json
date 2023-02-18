@@ -29,6 +29,7 @@
   "dependencies": {
     "@cteamdev/router": "^0.2.6",
     "@mntm/precoil": "^4.0.4",
+    "@tanstack/react-query": "^4.24.9",
     "@vkontakte/icons": "^1.129.0",
     "@vkontakte/vk-bridge": "^2.4.8",
     "@vkontakte/vkui": "^4.17.0",

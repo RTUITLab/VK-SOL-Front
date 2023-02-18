@@ -5,7 +5,7 @@ export const api = {
     fetch('https://levandrovskiy.ru/api/auth', { method: 'POST', headers:{ 'Content-Type': 'application/json' }, body: JSON.stringify({ state, address }) }).then((response) => response.json())
   , 
   getAddress: (state:string) => 
-    fetch(`https://levandrovskiy.ru/api/auth/${state}`, { method: 'GET', headers:{ 'Content-Type': 'application/json' } }).then((response) => response.json())
+    fetch(`https://levandrovskiy.ru/api/auth/${state}`, { method: 'GET', headers:{ 'Content-Type': 'application/json' } }).then((response) => response.json()),
   
-
+  getAllEvents: () => fetch('https://levandrovskiy.ru/api/event', { method: 'GET', headers:{ 'Content-Type': 'application/json' } }).then(response=>response.json())
 }

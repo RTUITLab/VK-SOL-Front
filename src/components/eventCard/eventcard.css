@@ -1,12 +1,41 @@
 .event-card__image{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .event-card{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
     padding: 8px;
+}
+
+.event-card__info{
     display: flex;
     flex-direction: column;
+    gap: 4px;
+}
+
+.event-card__date{
+    display: flex ;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.event-card__location{
+    text-decoration: none;
+
+}
+.owner__buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.event-card__buttons{
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: auto;
 }

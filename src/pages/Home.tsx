@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Group, Panel, PanelHeader, PanelProps, SimpleCell } from '@vkontakte/vkui'
+import { Avatar, Group, Panel, PanelHeader, PanelProps, Search, SimpleCell } from '@vkontakte/vkui'
 import {
   Icon28BillheadOutline,
   Icon28ChevronRightOutline,
@@ -16,6 +16,7 @@ import { vkUserAtom } from '../store'
 import { setDoneSnackbar, setErrorSnackbar } from '../hooks'
 import { push } from '@cteamdev/router'
 import EventCard from '../components/eventCard/EventCard'
+import Ticket from '../components/Ticket/Ticket'
 
 export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
   const vkUser: UserInfo = useAtomValue(vkUserAtom)
@@ -23,9 +24,24 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
   return (
     <Panel nav={nav}>
       <PanelHeader>Главная</PanelHeader>
-      {/* <Group> */}
-      <EventCard image='https://levandrovskiy.ru/img/foo.png' />
-      {/* </Group> */}
+      <Search />
+      <EventCard
+        image='https://levandrovskiy.ru/img/foo.png'
+        eventName='Баста в Ледовом'
+        description='Какое то описание'
+        date='17 февраля 2023'
+        time='17:00'
+        address='Москва, пр. Вернадского, 78'
+      // owner={true}
+      />
+
+      <Ticket
+        image='https://levandrovskiy.ru/img/foo.png'
+        eventName='Баста в Ледовом'
+        date='17 февраля 2023'
+        time='17:00'
+        address='Москва, пр. Вернадского, 78'
+      />
 
       {/* <Group>
         <SimpleCell

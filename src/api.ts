@@ -13,6 +13,13 @@ export type APIEventType = {
   white_list: number[]
 }
 
+export interface ExchangeRequest {
+  users: Array<{
+    id: string,
+    items: string[]
+  }>
+}
+
 
 export const api = {
   authorize: (state: string, address: string) =>
@@ -28,6 +35,10 @@ export const api = {
   getEventById: (id: string) => fetch(`https://levandrovskiy.ru/api/event/${id}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then(response => response.json()),
 
   getAllTickets: () => fetch('https://levandrovskiy.ru/api/ticket', { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then(response => response.json()),
+  
+  getTicketsForSell: () => fetch('https://levandrovskiy.ru/api/ticket', { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then(response => response.json()).then((data) => data.filter((i: any) => i.for_sell)),
 
-  createEvent: (data: EventType) => fetch('https://levandrovskiy.ru/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json())
+  createEvent: (data: EventType) => fetch('https://levandrovskiy.ru/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json()),
+  
+  createExchange: (data: ExchangeRequest) => fetch('https://levandrovskiy.ru/api/exchange', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json())
 }

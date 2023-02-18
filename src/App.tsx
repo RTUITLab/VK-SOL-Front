@@ -23,7 +23,6 @@ import Tickets from './pages/Tickets'
 export const App: React.FC = () => {
   const platform: PlatformType = getPlatform()
   const setVkUser = useSetAtomState(vkUserAtom)
-  const [isAdmin, setIsAdmin] = useState(true)
 
 
   useEffect(() => {

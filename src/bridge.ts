@@ -7,4 +7,4 @@ bridge.subscribe((e: VKBridgeEvent<AnyReceiveMethodName>) => {
   }
 })
 
-bridge.send('VKWebAppInit').then()
+bridge.send('VKWebAppInit')

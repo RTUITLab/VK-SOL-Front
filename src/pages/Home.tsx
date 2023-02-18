@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Avatar, CardGrid, Group, Panel, PanelHeader, PanelProps, Search, SimpleCell, Spacing } from '@vkontakte/vkui'
 import {
   Icon28BillheadOutline,
@@ -10,16 +10,20 @@ import {
   Icon28ArticleOutline,
   Icon20TicketOutline
 } from '@vkontakte/icons'
-import { UserInfo } from '@vkontakte/vk-bridge'
-import { useAtomValue } from '@mntm/precoil'
-import { vkUserAtom } from '../store'
+import bridge, { UserInfo } from '@vkontakte/vk-bridge'
+import { useAtomValue, useSetAtomState } from '@mntm/precoil'
+import { userAtom, vkUserAtom } from '../store'
 import { setDoneSnackbar, setErrorSnackbar } from '../hooks'
 import { push } from '@cteamdev/router'
 import EventCard from '../components/eventCard/EventCard'
 import Ticket from '../components/Ticket/Ticket'
 
+
 export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
   const vkUser: UserInfo = useAtomValue(vkUserAtom)
+  const user = useAtomValue(userAtom)
+  const setUser = useSetAtomState(userAtom)
+
 
   return (
     <Panel nav={nav}>

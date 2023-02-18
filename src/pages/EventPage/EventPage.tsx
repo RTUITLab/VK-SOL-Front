@@ -62,7 +62,7 @@ function EventPage(props: EventPagetypes) {
                                 <a
                                     className='event-card__location'
                                     target={'_blank'}
-                                    href={`https://yandex.ru/maps/213/moscow/search/${props.address}`} rel='noreferrer'
+                                    href={`https://yandex.ru/maps/213/moscow/search/${data.place}`} rel='noreferrer'
                                 >
                                     <Headline style={{ color: '#2688EB' }} weight='semibold'>
                                         {data.place}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Group, Panel, PanelHeader, PanelProps, Search, SimpleCell } from '@vkontakte/vkui'
+import { Avatar, CardGrid, Group, Panel, PanelHeader, PanelProps, Search, SimpleCell, Spacing } from '@vkontakte/vkui'
 import {
   Icon28BillheadOutline,
   Icon28ChevronRightOutline,
@@ -25,24 +25,36 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
     <Panel nav={nav}>
       <PanelHeader>Главная</PanelHeader>
       <Search />
-      <EventCard
-        image='https://levandrovskiy.ru/img/foo.png'
-        eventName='Баста в Ледовом'
-        description='Какое то описание'
-        date='17 февраля 2023'
-        time='17:00'
-        address='Москва, пр. Вернадского, 78'
-      // owner={true}
-      />
-
-      <Ticket
-        image='https://levandrovskiy.ru/img/foo.png'
-        eventName='Баста в Ледовом'
-        date='17 февраля 2023'
-        time='17:00'
-        address='Москва, пр. Вернадского, 78'
-      />
-
+      <Spacing />
+      <Group mode='plain'>
+        <CardGrid size='l'>
+          <EventCard
+            image='https://levandrovskiy.ru/img/foo.png'
+            eventName='Баста в Ледовом'
+            description='Какое то описание'
+            date='17 февраля 2023'
+            time='17:00'
+            address='Москва, пр. Вернадского, 78'
+          // owner={true}
+          />
+          <EventCard
+            image='https://levandrovskiy.ru/img/foo.png'
+            eventName='Баста в Ледовом'
+            description='Какое то описание'
+            date='17 февраля 2023'
+            time='17:00'
+            address='Москва, пр. Вернадского, 78'
+          />
+          <EventCard
+            image='https://levandrovskiy.ru/img/foo.png'
+            eventName='Баста в Ледовом'
+            description='Какое то описание'
+            date='17 февраля 2023'
+            time='17:00'
+            address='Москва, пр. Вернадского, 78'
+          />
+        </CardGrid>
+      </Group>
       {/* <Group>
         <SimpleCell
           before={

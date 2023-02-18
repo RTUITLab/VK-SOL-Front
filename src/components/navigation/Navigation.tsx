@@ -21,13 +21,13 @@ const adminItems: NavigationItem[] = [
   { to: '/', text: 'Главная', icon: <Icon28NameTagOutline /> },
   { to: '/events', text: 'Мероприятия', icon: <Icon28CalendarOutline /> },
   { to: '/favorite', text: 'Избранное', icon: <Icon28HeartCircleOutline /> },
-  { to: '/profile', text: 'Профиль', icon: <Icon28Profile /> },
+  { to: '/profile', text: 'Профиль', icon: <Icon28Profile /> }
 ]
 const userItems: NavigationItem[] = [
   { to: '/', text: 'Главная', icon: <Icon28NameTagOutline /> },
   { to: '/tickets', text: 'Мои Билеты', icon: <Icon28TicketOutline /> },
   { to: '/favorite', text: 'Избранное', icon: <Icon28HeartCircleOutline /> },
-  { to: '/profile', text: 'Профиль', icon: <Icon28Profile /> },
+  { to: '/profile', text: 'Профиль', icon: <Icon28Profile /> }
 ]
 
 type NavigationProps = {

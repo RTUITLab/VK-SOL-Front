@@ -38,7 +38,7 @@ export const App: React.FC = () => {
     <ConfigProvider platform={platform}>
       <AdaptivityProvider>
         <AppRoot>
-          <Navigation isAdmin={isAdmin}>
+          <Navigation >
             <View nav='/'>
               <Home nav='/' />
             </View>
@@ -52,7 +52,7 @@ export const App: React.FC = () => {
               <Tickets nav='/' />
             </View>
             <View nav='/profile'>
-              <Profile setIsAdmin={setIsAdmin} isAdmin={isAdmin} nav='/' />
+              <Profile nav='/' />
             </View>
           </Navigation>
         </AppRoot>

@@ -21,12 +21,13 @@ function Tickets({ nav }: PanelProps) {
         ? <Spinner />
         : <Group>
           <List>
-            {tickets.data.filter((item: any) => item.user_id == user.walletAddress).map((e: any) => {
-              const t_event = events.data.find((i: any) => i._id == e.event_id)
+            {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
+              const t_event = events.data.find((i: any) => i._id === e.event_id)
               return (
                 <>
                   <Cell key={e._id}>
                     <Ticket
+                      with_qr={true}
                       image={e.url}
                       eventName={t_event.name}
                       date={t_event.date.split('T')[0]}

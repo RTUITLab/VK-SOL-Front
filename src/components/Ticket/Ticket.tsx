@@ -6,11 +6,12 @@ import { userAtom } from '../../store'
 import './ticket.css'
 
 type TicketProps = {
-    image: string,
-    eventName: string,
-    date: string,
-    time: string,
-    address: string,
+  image: string,
+  eventName: string,
+  date: string,
+  time: string,
+  address: string,
+  with_qr: boolean
 }
 
 function Ticket(props: TicketProps) {
@@ -50,9 +51,11 @@ function Ticket(props: TicketProps) {
         </MiniInfoCell>
       </div>
       <img className='ticket__image' src={props.image} />
-      <IconButton className='ticket__qr' >
-        <Icon28QrCodeOutline fill='fff' />
-      </IconButton>
+      {props.with_qr &&
+        <IconButton className='ticket__qr' >
+          <Icon28QrCodeOutline fill='fff' />
+        </IconButton>
+      }
     </article>
   )
 }

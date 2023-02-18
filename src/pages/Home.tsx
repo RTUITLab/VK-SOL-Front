@@ -25,7 +25,7 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
   const vkUser: UserInfo = useAtomValue(vkUserAtom)
   const user = useAtomValue(userAtom)
   const setUser = useSetAtomState(userAtom)
-  
+
   const { data, isLoading } = useQuery({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
 
   return (
@@ -35,9 +35,9 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
       <Spacing />
       <Group mode='plain'>
         <CardGrid size='l'>
-          
-          {isLoading ?  <Spinner size={'large'} style={{ margin: '20px 0' }} /> : data?.map((e)=>
-            <EventCard time={'18:00'} image={'https://levandrovskiy.ru'+e.cover} date={e.date} description={e.description} eventName={e.name} address={e.place} key={e._id} />
+
+          {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : data?.map((e) =>
+            <EventCard time={'18:00'} image={'https://levandrovskiy.ru' + e.cover} date={e.date} description={e.description} eventName={e.name} address={e.place} key={e._id} />
           )}
         </CardGrid>
       </Group>

@@ -1,8 +1,7 @@
 import React from 'react'
-import { Panel, PanelHeader, PanelHeaderButton, PanelHeaderButton, PanelHeaderContent, PanelProps, SimpleCell, Spinner, View } from '@vkontakte/vkui'
+import { Panel, PanelHeader, PanelHeaderButton, PanelHeaderContent, PanelProps, SimpleCell, Spinner, View } from '@vkontakte/vkui'
 import { Icon28AddSquareOutline, Icon28BillheadOutline } from '@vkontakte/icons'
 import { push } from '@cteamdev/router'
-import { Icon28AddSquareOutline } from '@vkontakte/icons'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../api'
 
@@ -20,10 +19,6 @@ function Events({ nav }: PanelProps) {
             <Icon28AddSquareOutline />
           </PanelHeaderButton>
         }>
-        <PanelHeaderButton>
-          <Icon28AddSquareOutline />
-        </PanelHeaderButton>
-
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
       {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : 'nothing here now'//data.map((e)=>e)

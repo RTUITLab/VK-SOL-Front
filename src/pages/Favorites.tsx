@@ -18,7 +18,7 @@ function Favorites({ nav }: PanelProps) {
         return ['']
       }) || ['']
     
-    const ids = bridge.send('VKWebAppStorageGet', {
+    const ids = await bridge.send('VKWebAppStorageGet', {
       keys: likesKeys })
       .then((data) => { 
         if (data.keys) {
@@ -27,12 +27,17 @@ function Favorites({ nav }: PanelProps) {
       })
       .catch(() => [''])
 
-    //! дописать 
+    const cards = ids?.map((id)=> fetch(`https://levandrovskiy.ru/api/event/${id}`).then(data=>data.json())) || []
+    
+    return await Promise.all(cards)
   } })
+
+  console.log(data)
 
   return (
     <Panel nav={nav}>
       <PanelHeader><PanelHeaderContent>Избранное</PanelHeaderContent></PanelHeader>
+      {data?.map(card=><EventCard image={'https://levandrovskiy.ru'+card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>)}
     </Panel>
   )
 }

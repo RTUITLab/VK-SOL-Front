@@ -18,19 +18,19 @@ type EventCardprops = {
 function EventCard(props: EventCardprops) {
   const queryClient = useQueryClient()
 
-  const { data } = useQuery({ queryKey:[ 'like', { id:props.id }], queryFn: 
+  const { data } = useQuery({ queryKey: [ 'like', { id: props.id }], queryFn: 
     ()=>bridge.send('VKWebAppStorageGet', {
       keys: ['liked'+props.id.toString()] })
       .then((data) => 
         (data.keys[0].value.toString()==='true')
       ) })
 
-  const { mutate } = useMutation({ mutationFn: ()=> bridge.send('VKWebAppStorageSet', {
+  const { mutate } = useMutation({ mutationFn: () => bridge.send('VKWebAppStorageSet', {
     key: 'liked'+props.id,
     value: (!data).toString()
   }),
   onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['like', { id:props.id }] })
+    queryClient.invalidateQueries({ queryKey: ['like', { id: props.id }] })
   } })
 
   function handleEdit() {

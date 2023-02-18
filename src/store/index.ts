@@ -6,4 +6,6 @@ export const vkUserAtom = atom<UserInfo>({} as UserInfo, 'vkUser')
 
 export const userAtom = atom<StoreData>({ isAdmin: true, walletAddress: '' }, 'user')
 
+export const eventIdAtom = atom<string>('', 'eventID')
+
 export const snackbarAtom = atom<Snackbar | undefined>(undefined, 'snackbar')

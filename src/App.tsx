@@ -8,18 +8,19 @@ import {
   SplitLayout
 } from '@vkontakte/vkui'
 import '@vkontakte/vkui/dist/vkui.css'
-import { View } from '@cteamdev/router'
+import { useCurrentState, View } from '@cteamdev/router'
 import { Home } from './pages'
 import { Navigation } from './components/navigation'
 import { getPlatform } from './utils'
-import { useSetAtomState } from '@mntm/precoil'
-import { vkUserAtom } from './store'
+import { useAtomValue, useSetAtomState } from '@mntm/precoil'
+import { eventIdAtom, vkUserAtom } from './store'
 import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import Events from './pages/Events'
 import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Tickets from './pages/Tickets'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import EventPage from './pages/EventPage/EventPage'
 
 const queryClient = new QueryClient()
 
@@ -43,6 +44,12 @@ export const App: React.FC = () => {
             <Navigation >
               <View nav='/'>
                 <Home nav='/' />
+              </View>
+              <View nav={'/current_event'}>
+                <EventPage
+                  nav='/'
+                  name='event name'
+                />
               </View>
               <View nav='/events'>
                 <Events nav='/' />

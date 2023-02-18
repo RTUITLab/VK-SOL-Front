@@ -1,20 +1,25 @@
+import { push, replace, useCurrentState } from '@cteamdev/router'
+import { useAtomState, useAtomValue, useSetAtomState } from '@mntm/precoil'
 import { Icon16Add, Icon16ClockCircleFill, Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon20CalendarCircleFillRed, Icon28CalendarOutline, Icon28Delete, Icon28DeleteOutline, Icon28EditOutline, Icon28HeartCircleOutline, Icon28Like, Icon28LikeOutline, Icon28ShareOutline } from '@vkontakte/icons'
 import { Button, Caption, Card, Cell, Group, IconButton, MiniInfoCell, SimpleCell, SplitCol, Text, Title } from '@vkontakte/vkui'
 import React from 'react'
+import { eventIdAtom } from '../../store'
 import './eventcard.css'
 
 type EventCardprops = {
-    image: string,
-    eventName: string,
-    description: string,
-    date: string,
-    time: string,
-    address: string,
-    owner?: boolean
-
+  image: string,
+  eventName: string,
+  description: string,
+  date: string,
+  time: string,
+  address: string,
+  id: string,
+  owner?: boolean
 }
 
 function EventCard(props: EventCardprops) {
+  const setId = useSetAtomState(eventIdAtom)
+  const eventId = useAtomValue(eventIdAtom)
 
   function handlechangeFavorite() {
   }
@@ -25,7 +30,13 @@ function EventCard(props: EventCardprops) {
 
   }
 
-  function handleShare() {}
+  function handleShare() { }
+
+
+  function handleMore() {
+    setId(props.id)
+    replace('/current_event')
+  }
 
 
   return (
@@ -85,11 +96,11 @@ function EventCard(props: EventCardprops) {
             <IconButton onClick={handlechangeFavorite}>
               <Icon28LikeOutline />
             </IconButton>
-            {!props.owner &&<IconButton onClick={handleShare}>
+            {!props.owner && <IconButton onClick={handleShare}>
               <Icon28ShareOutline />
             </IconButton>}
           </div>
-          <Button size='l' mode='outline'>
+          <Button size='l' mode='outline' onClick={handleMore}>
             Подробнее
           </Button>
 

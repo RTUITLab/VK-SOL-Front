@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Avatar, CardGrid, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Search, SimpleCell, Spacing, Spinner } from '@vkontakte/vkui'
+import { Avatar, Button, CardGrid, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Search, SimpleCell, Spacing, Spinner } from '@vkontakte/vkui'
 import {
   Icon28BillheadOutline,
   Icon28ChevronRightOutline,
@@ -14,7 +14,7 @@ import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import { useAtomValue, useSetAtomState } from '@mntm/precoil'
 import { userAtom, vkUserAtom } from '../store'
 import { setDoneSnackbar, setErrorSnackbar } from '../hooks'
-import { push } from '@cteamdev/router'
+import { push, replace } from '@cteamdev/router'
 import EventCard from '../components/eventCard/EventCard'
 import Ticket from '../components/Ticket/Ticket'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -37,7 +37,7 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
         <CardGrid size='l'>
 
           {isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> : data?.map((e) =>
-            <EventCard time={'18:00'} image={'https://levandrovskiy.ru' + e.cover} date={e.date} description={e.description} eventName={e.name} address={e.place} key={e._id} />
+            <EventCard id={e._id} time={'18:00'} image={'https://levandrovskiy.ru' + e.cover} date={e.date} description={e.description} eventName={e.name} address={e.place} key={e._id} />
           )}
         </CardGrid>
       </Group>

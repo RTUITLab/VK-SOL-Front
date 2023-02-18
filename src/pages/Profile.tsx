@@ -7,6 +7,7 @@ import {
   Headline,
   Panel,
   PanelHeader,
+  PanelHeaderContent,
   SimpleCell,
   Subhead,
   Switch,
@@ -60,7 +61,7 @@ function Profile({ nav }: ProfileProps) {
 
   return (
     <Panel nav={nav}>
-      <PanelHeader>Профиль</PanelHeader>
+      <PanelHeader><PanelHeaderContent>Профиль</PanelHeaderContent></PanelHeader>
       <Group>
         <SimpleCell before={<Avatar size={72} src={vkUser.photo_200} />}>
           {vkUser.first_name} {vkUser.last_name}

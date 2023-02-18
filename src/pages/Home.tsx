@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Avatar, CardGrid, Group, Panel, PanelHeader, PanelProps, Search, SimpleCell, Spacing } from '@vkontakte/vkui'
+import { Avatar, CardGrid, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Search, SimpleCell, Spacing } from '@vkontakte/vkui'
 import {
   Icon28BillheadOutline,
   Icon28ChevronRightOutline,
@@ -27,7 +27,7 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
 
   return (
     <Panel nav={nav}>
-      <PanelHeader>Главная</PanelHeader>
+      <PanelHeader><PanelHeaderContent>Главная</PanelHeaderContent></PanelHeader>
       <Search />
       <Spacing />
       <Group mode='plain'>

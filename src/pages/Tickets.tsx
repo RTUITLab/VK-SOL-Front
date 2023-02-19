@@ -24,8 +24,8 @@ function Tickets({ nav }: PanelProps) {
             {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
               const t_event = events.data.find((i: any) => i._id === e.event_id)
               return (
-                <>
-                  <Cell key={e._id}>
+                <React.Fragment key={e._id}>
+                  <Cell >
                     <Ticket
                       with_qr={true}
                       image={e.url}
@@ -36,7 +36,7 @@ function Tickets({ nav }: PanelProps) {
                     />
                   </Cell>
                   <Spacing size={16} />
-                </>
+                </React.Fragment>
               )
             })}
           </List>

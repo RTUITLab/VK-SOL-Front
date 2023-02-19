@@ -40,6 +40,7 @@ function EventCard(props: EventCardprops) {
       value: (!data).toString()
     }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['allLikes'] })
       queryClient.invalidateQueries({ queryKey: ['like', { id: props.id }] })
     }
   })

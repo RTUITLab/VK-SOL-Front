@@ -6,36 +6,32 @@ import EventCard from '../components/eventCard/EventCard'
 
 function Favorites({ nav }: PanelProps) {
   const { data } = useQuery({
-    queryKey: ['like'], queryFn: async () => {
+    queryKey: ['allLikes'], queryFn: async () => {
       const likesKeys = await bridge.send('VKWebAppStorageGetKeys', {
         count: 30, offset: 0
       })
         .then((data) => {
           if (data.keys) {
-            return data.keys.filter((e) => e.startsWith('liked')).map(e => e.slice(5)) || ['']
+            return data.keys.filter((e) => e.startsWith('liked')) || ['']
           }
         })
-        .catch(() => {
-          return ['']
-        }) || ['']
+        .catch() || ['']
 
       const ids = await bridge.send('VKWebAppStorageGet', {
         keys: likesKeys
       })
         .then((data) => {
           if (data.keys) {
-            return data.keys.filter(e => e.value === 'true').map(e => e.key)
+            return data.keys.filter(e => e.value === 'true').map(e => e.key).map(e => e.slice(5))
           }
         })
-        .catch(() => [''])
+        .catch()
 
       const cards = ids?.map((id) => fetch(`https://levandrovskiy.ru/api/event/${id}`).then(data => data.json())) || []
 
       return await Promise.all(cards)
     }
   })
-
-  console.log(data)
 
   return (
     <Panel nav={nav}>

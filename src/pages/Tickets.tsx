@@ -22,7 +22,6 @@ function Tickets({ nav }: PanelProps) {
           <List>
             {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
               const t_event = events.data.find((i: any) => i._id === e.event_id)
-              console.log(e.mint)
               return (
                 <React.Fragment key={e._id}>
                   <Cell >

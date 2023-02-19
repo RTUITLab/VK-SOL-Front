@@ -68,6 +68,17 @@ function EventPage(props: EventPagetypes) {
   function handleCreateTicket() {
     mutate()
   }
+  
+  function copy(e) {
+    navigator.clipboard.writeText(e.target.value).then(()=>
+      setSnackbar(<Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon24Done />}
+                  >
+        Адрес успешно скопирован
+      </Snackbar>)
+    )      
+  }
 
   return (
     <Panel nav={props.nav}>
@@ -144,7 +155,7 @@ function EventPage(props: EventPagetypes) {
             <IconButton onClick={()=>{changeFav()}}>
               {isLiked ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>
-            <Cell indicator={<Counter>{data.amount-data.minted || data.amount}</Counter>}>
+            <Cell indicator={<Counter>{data.amount || data.amount-data.minted}</Counter>}>
               Всего билетов
             </Cell>
           </div>
@@ -161,7 +172,7 @@ function EventPage(props: EventPagetypes) {
           >Добавить</CellButton> : null}
         </Div>
         {
-          data && data.white_list.map((item, index) => <SimpleCell key={index} after={<Icon28CopyOutline />}>
+          data && data.white_list.map((item, index) => <SimpleCell key={index} onClick={copy} after={<Icon28CopyOutline />}>
             {item}
           </SimpleCell>)
         }

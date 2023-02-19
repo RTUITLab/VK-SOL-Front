@@ -1,8 +1,9 @@
+import { push } from '@cteamdev/router'
 import { useAtomValue } from '@mntm/precoil'
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon28QrCodeOutline } from '@vkontakte/icons'
 import { Caption, IconButton, MiniInfoCell, Text, Title } from '@vkontakte/vkui'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { api } from '../../api'
 import { userAtom } from '../../store'
 import './ticket.css'
@@ -18,12 +19,6 @@ type TicketProps = {
 }
 
 function Ticket(props: TicketProps) {
-  const user = useAtomValue(userAtom)
-  const [qrState, setQrState] = useState(false)
-
-  const { data: qrData } = useQuery({ queryKey: ['ticketQr', { id: props.ticket }], queryFn: () => api.getQr(user.walletAddress, props.ticket) })
-
-  console.log(qrData)
 
   return (
     <article className='ticket'>
@@ -62,11 +57,10 @@ function Ticket(props: TicketProps) {
       </div>
       <img className='ticket__image' src={props.image} />
       {props.with_qr &&
-        <IconButton className='ticket__qr' onClick={()=>setQrState((s)=>!s)}>
+        <IconButton className='ticket__qr' onClick={() => push(`/tickets?modal=qr&ticket=${props.ticket}`)}>
           <Icon28QrCodeOutline fill='fff' />
         </IconButton>
       }
-      {qrData && qrState && <img src={`https://chart.googleapis.com/chart?cht=qr&chs=1500x500&chl=${qrData}`} />}
     </article>
   )
 }

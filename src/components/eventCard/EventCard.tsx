@@ -58,7 +58,9 @@ function EventCard(props: EventCardprops) {
     replace('/current_event')
   }
   function handleShare() {
-    return undefined
+    bridge.send('VKWebAppShare', {
+      link: 'https://vk.com/app6909581'
+    })
   }
 
   return (

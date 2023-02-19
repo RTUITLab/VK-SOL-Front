@@ -90,9 +90,9 @@ function Profile({ nav }: ProfileProps) {
             </SimpleCell>
           </Group>}
 
-        <SimpleCell onClick={handleAddWallet} before={<Icon28AddSquareOutline />}>
+        {user.walletAddress === '' && <SimpleCell onClick={handleAddWallet} before={<Icon28AddSquareOutline />}>
           Добавить кошелёк
-        </SimpleCell>
+        </SimpleCell>}
       </Group>
     </Panel>
   )

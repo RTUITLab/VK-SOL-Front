@@ -36,8 +36,13 @@
 }
 
 .event-card__buttons{
+    height: 100%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: flex-end;
     margin-left: auto;
+}
+
+.event-card__buttons > .more_button {
+    margin-bottom: 0%;
 }

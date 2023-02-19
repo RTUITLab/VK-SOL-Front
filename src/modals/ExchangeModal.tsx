@@ -2,24 +2,36 @@ import { back, useParams } from "@cteamdev/router";
 import { useAtomValue } from "@mntm/precoil";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Cell, Div, Group, List, ModalCard, ModalCardProps, ModalPage, ModalPageHeader, ModalPageProps, Spacing, Spinner } from "@vkontakte/vkui";
-import React from "react";
+import React, { useState } from "react";
 import { api } from "../api";
 import Ticket from "../components/Ticket/Ticket";
 import { userAtom } from "../store";
 import './exchange.css'
 
 export const ExchangeModal: React.FC<ModalPageProps> = ({ nav }: ModalPageProps) => {
-  const user = useAtomValue(userAtom)
-  const { ticket } = useParams<{ ticket: string }>()
+  const currentUser = useAtomValue(userAtom)
+  const { ticket, user } = useParams<{ ticket: string, user: string }>()
   const tickets = useQuery({ queryKey: ['AllTickets'], queryFn: api.getAllTickets })
   const events = useQuery({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
+  const [selectedTickets, setTickets] = useState([] as string[])
   const { mutate, isLoading } = useMutation({ mutationFn: api.createExchange, mutationKey: ['AddExchange'], onSuccess: handleSuccess, onError: handleError })
 
-  function handleSuccess() { }
+  function handleSuccess() {
+    back()
+  }
 
   function handleError() { }
 
-  function handleCreate() { }
+  function handleCreate() {
+    if (selectedTickets.length !== 0) {
+      mutate({
+        users: [
+          { user_id: user, tickets: [ticket] },
+          { user_id: currentUser.walletAddress, tickets: selectedTickets }
+        ]
+      })
+    }
+  }
 
   return (
     <ModalPage nav={nav} onClose={back} header={<ModalPageHeader>Выбор билетов для обмена</ModalPageHeader>}>
@@ -27,11 +39,18 @@ export const ExchangeModal: React.FC<ModalPageProps> = ({ nav }: ModalPageProps)
         ? <Spinner />
         : <Group>
           <List>
-            {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
+            {tickets.data.filter((item: any) => item.user_id === currentUser.walletAddress).map((e: any) => {
               const t_event = events.data.find((i: any) => i._id === e.event_id)
               return (
                 <>
-                  <Cell key={e._id} mode='selectable' onClick={(e) => {console.log(e)}}>
+                  <Cell key={e._id} mode='selectable' onClick={(event: any) => {
+                    console.log(selectedTickets, event.target.checked, e._id)
+                    if (event.target.checked) {
+                      setTickets([...selectedTickets, e._id])
+                    } else {
+                      setTickets(selectedTickets.filter((item) => item !== e._id))
+                    }
+                  }}>
                     <Ticket
                       with_qr={false}
                       image={e.url}

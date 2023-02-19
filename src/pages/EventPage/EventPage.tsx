@@ -92,7 +92,7 @@ function EventPage(props: EventPagetypes) {
       {isLoading || loadLike ? <Spinner size='large' /> : data &&
         <Group>
           <div className='event-page'>
-            <img className='event-page__image' src={`https://levandrovskiy.ru${data.cover}`} />
+            <img className='event-page__image' src={data.cover ? `https://levandrovskiy.ru${data.cover}` : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
             <div className='event-page__info'>
               <Headline size={3} >
                 {data.description}
@@ -169,7 +169,7 @@ function EventPage(props: EventPagetypes) {
           <Div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Title>Вайтлист</Title>
             {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
-              onClick={() => push('/events/?modal=wallet')}
+              onClick={() => push(`/events/?modal=wallet&id=${eventId}`)}
               before={<Icon28AddOutline />}
             >Добавить</CellButton> : null}
           </Div>

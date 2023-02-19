@@ -37,12 +37,12 @@ function Events({ nav }: PanelProps) {
               key={item._id}
               eventName={item.name}
               description={item.description}
-              image={`https://levandrovskiy.ru${item.cover}`}
+              image={item.cover}
               address={item.place}
               time={item.date.split('T')[1]}
               date={item.date.split('T')[0]}
               owner={true}
-                                       />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет созданных мероприятий'}</div>}
+            />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет созданных мероприятий'}</div>}
           </CardGrid></>}
     </Panel>
   )

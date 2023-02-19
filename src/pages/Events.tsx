@@ -26,7 +26,7 @@ function Events({ nav }: PanelProps) {
       >
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
-      {user.isAdmin ?  <><div style={{ textAlign: 'center', margin: 20 }}>{'Подключите кошелек для создания мероприятий'}</div>
+      {!user.walletAddress ? <><div style={{ textAlign: 'center', margin: 20 }}>{'Подключите кошелек для создания мероприятий'}</div>
         <div style={{ textAlign: 'center', margin: 20 }}>{'Это можно сделать во вкладке "Профиль'}</div></> : isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
         <><Spacing />
           <CardGrid

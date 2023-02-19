@@ -25,7 +25,7 @@ function Collections({ nav }: PanelProps) {
               const t_event = events.data.find((i: any) => i._id === ticket.event_id)
               return (
                 <React.Fragment  key={ticket._id}>
-                  <Cell onClick={() => push(`/collections/?modal=exchange&ticket=${ticket._id}`)}>
+                  <Cell onClick={() => push(`/collections/?modal=exchange&ticket=${ticket._id}&user=${ticket.user_id}`)}>
                     <Ticket
                       with_qr={false}
                       image={ticket.url}

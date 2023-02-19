@@ -11,7 +11,6 @@ function Tickets({ nav }: PanelProps) {
   const user = useAtomValue(userAtom)
   const tickets = useQuery({ queryKey: ['AllTickets'], queryFn: api.getAllTickets })
   const events = useQuery({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
-
   return (
     <Panel nav={nav}>
       <PanelHeader >
@@ -23,10 +22,12 @@ function Tickets({ nav }: PanelProps) {
           <List>
             {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
               const t_event = events.data.find((i: any) => i._id === e.event_id)
+              console.log(e.mint)
               return (
                 <React.Fragment key={e._id}>
                   <Cell >
                     <Ticket
+                      ticket={e.mint}
                       with_qr={true}
                       image={e.url}
                       eventName={t_event.name}

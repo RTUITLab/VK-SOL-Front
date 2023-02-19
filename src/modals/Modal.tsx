@@ -53,7 +53,8 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
     }
 
     if (data.user_id) {
-      console.log(data);
+      console.log(data)
+      
       mutate(data)
       setError('')
       back()

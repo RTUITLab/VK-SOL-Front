@@ -7,6 +7,7 @@ export type APIEventType = {
   date: string,
   description: string,
   minted: number,
+  viewed?: number,
   name: string,
   place: string,
   user_id: string,

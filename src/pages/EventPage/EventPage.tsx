@@ -166,8 +166,10 @@ function EventPage(props: EventPagetypes) {
 
       {
         user.isAdmin && <Group>
+          <Div>Просмотров события: {data && data!.viewed}</Div>
+          <Div>Получено билетов:   {data && data!.minted}</Div>
           <Div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Title>Вайтлист</Title>
+            <Title>Whitelist</Title>
             {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
               onClick={() => push(`/events/?modal=wallet&id=${eventId}`)}
               before={<Icon28AddOutline />}
@@ -179,7 +181,7 @@ function EventPage(props: EventPagetypes) {
             </SimpleCell>)
           }
           {
-            data && data.white_list.length === 0 && <SimpleCell>Вайтлист пока пуст</SimpleCell>
+            data && data.white_list.length === 0 && <SimpleCell>Whitelist пока пуст</SimpleCell>
           }
         </Group>}
       {

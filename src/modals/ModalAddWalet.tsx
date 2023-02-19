@@ -26,7 +26,7 @@ export const ModalAddWalet: React.FC<ModalCardProps> = ({ nav }: ModalCardProps)
         onClose={() => setSnackbar(null)}
         before={<Icon24Error />}
     >
-        Ошбка при добавлении в вайтлист
+        Ошбка при добавлении в whitelist
     </Snackbar>
 
     function handleError() {
@@ -45,7 +45,7 @@ export const ModalAddWalet: React.FC<ModalCardProps> = ({ nav }: ModalCardProps)
         <ModalCard
             nav={nav}
             onClose={back}
-            header='Добавить в вайтлист'
+            header='Добавить в whitelist'
             actions={
                 <Button size='l' onClick={handleAddWallet}>
                     Добавить

@@ -102,7 +102,7 @@ function Profile({ nav }: ProfileProps) {
           </Group>}
 
         {user.walletAddress === '' ? <SimpleCell onClick={handleAddWallet} before={<Icon28AddSquareOutline />}>
-          Добавить кошелёк
+          Подключить кошелёк
         </SimpleCell> : <SimpleCell onClick={handleRemoveWallet} before={<Icon28RemoveCircleOutline />}>
           Отключить кошелёк
         </SimpleCell>}

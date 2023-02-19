@@ -29,7 +29,8 @@ function Events({ nav }: PanelProps) {
       {isLoading && <Spinner size={'large'} style={{ margin: '20px 0' }} />}
       <Spacing />
       <CardGrid
-        size='l'>
+        size='l'
+      >
         {data ? data.map((item) => <EventCard
           id={item._id}
           key={item._id}
@@ -40,7 +41,7 @@ function Events({ nav }: PanelProps) {
           time={item.date.split('T')[1]}
           date={item.date.split('T')[0]}
           owner={true}
-        />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет мероприятий'}</div>}
+                                   />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет созданных мероприятий'}</div>}
       </CardGrid>
     </Panel>
   )

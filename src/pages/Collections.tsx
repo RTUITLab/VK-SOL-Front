@@ -1,11 +1,11 @@
-import React from "react";
-import { Cell, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from "@vkontakte/vkui";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../api";
-import { useAtomValue } from "@mntm/precoil";
-import { userAtom } from "../store";
-import Ticket from "../components/Ticket/Ticket";
-import { push } from "@cteamdev/router";
+import React from 'react'
+import { Cell, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '../api'
+import { useAtomValue } from '@mntm/precoil'
+import { userAtom } from '../store'
+import Ticket from '../components/Ticket/Ticket'
+import { push } from '@cteamdev/router'
 
 function Collections({ nav }: PanelProps) {
   const user = useAtomValue(userAtom)
@@ -24,8 +24,8 @@ function Collections({ nav }: PanelProps) {
             {tickets.data.map((ticket: any) => {
               const t_event = events.data.find((i: any) => i._id === ticket.event_id)
               return (
-                <>
-                  <Cell key={ticket._id} onClick={() => push(`/collections/?modal=exchange&ticket=${ticket._id}`)}>
+                <React.Fragment  key={ticket._id}>
+                  <Cell onClick={() => push(`/collections/?modal=exchange&ticket=${ticket._id}`)}>
                     <Ticket
                       with_qr={false}
                       image={ticket.url}
@@ -36,7 +36,7 @@ function Collections({ nav }: PanelProps) {
                     />
                   </Cell>
                   <Spacing size={16} />
-                </>
+                </React.Fragment>
               )
             })
             }

@@ -103,15 +103,15 @@ function Ticket(props: TicketProps) {
             Убрать с обмена
           </Button> :
             <Button
-            size='m'
-            style={{ width: '150px' }}
-            appearance='accent'
-            mode='secondary'
-            onClick={handleTrade}
-          >
-            Обменять
-          </Button>) : null}
-      </div>        
+              size='m'
+              style={{ width: '150px' }}
+              appearance='accent'
+              mode='secondary'
+              onClick={handleTrade}
+            >
+              Обменять
+            </Button>) : null}
+      </div>
       <a href={props.image} target='_blank' rel='noreferrer'>
         <img className='ticket__image' src={props.image} />
       </a>

@@ -80,7 +80,7 @@ function Profile({ nav }: ProfileProps) {
           {vkUser.first_name} {vkUser.last_name}
         </SimpleCell>
 
-        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} readOnly={true} />}>
+        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} onChange={handleChange} />}>
           Я администратор
         </SimpleCell>
       </Group>

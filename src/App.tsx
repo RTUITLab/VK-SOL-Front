@@ -20,6 +20,7 @@ import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Tickets from './pages/Tickets'
 import Collections from './pages/Collections'
+import Requests from './pages/Requests'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import EventPage from './pages/EventPage/EventPage'
 
@@ -81,6 +82,9 @@ export const App: React.FC = () => {
               </View>
               <View nav='/collections'>
                 <Collections nav='/' />
+              </View>
+              <View nav='/requests'>
+                <Requests nav='/' />
               </View>
             </Navigation>
           </AppRoot>

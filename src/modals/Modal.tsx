@@ -71,7 +71,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
       header='Cоздание мероприятия'
     >
       {
-        isLoading ? <Spinner /> :
+        isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
 
           <FormLayout>
             <FormItem top='Название мероприятия'>

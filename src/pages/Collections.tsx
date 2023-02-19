@@ -17,7 +17,7 @@ function Collections({ nav }: PanelProps) {
       <PanelHeader><PanelHeaderContent>Коллекции</PanelHeaderContent></PanelHeader>
 
       {tickets.isLoading || events.isLoading
-        ? <Spinner />
+        ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : tickets.data.length == 0
           ? <div style={{ textAlign: 'center', margin: 20 }}>{'Ни один билет не выставлен на обмен'}</div>
           : <Group>

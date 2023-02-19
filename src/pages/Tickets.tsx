@@ -17,7 +17,7 @@ function Tickets({ nav }: PanelProps) {
         <PanelHeaderContent>Мои Билеты</PanelHeaderContent>
       </PanelHeader>
       {tickets.isLoading || events.isLoading
-        ? <Spinner />
+        ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : <Group>
           <List>
             {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {

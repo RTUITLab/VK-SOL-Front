@@ -139,7 +139,7 @@ function EventPage(props: EventPagetypes) {
                   >
                     Получить билет
                   </Button>
-                  : buy ? <>Подождите, пока обработается платеж</> :
+                  : buy ? <>Подождите, пока обработается платёж</> :
                     ((user.walletAddress) ? user.isAdmin ? null : <Button
                       size='l'
                       appearance='positive'
@@ -156,13 +156,13 @@ function EventPage(props: EventPagetypes) {
               <IconButton onClick={() => { changeFav() }}>
                 {isLiked ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
               </IconButton>
-              <Cell indicator={<Counter>{data.amount}</Counter>}>
+              <Cell indicator={<Counter>{`${'0' || data.minted}/${data.amount}`}</Counter>}>
                 Билетов
               </Cell>
             </div>
           </div>
         </Group>
-      }
+      }{console.log(data)}
 
       {
         user.isAdmin && <Group>

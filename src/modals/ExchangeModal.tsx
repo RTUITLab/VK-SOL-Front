@@ -25,6 +25,7 @@ export const ExchangeModal: React.FC<ModalPageProps> = ({ nav }: ModalPageProps)
   function handleCreate() {
     if (selectedTickets.length !== 0) {
       mutate({
+        user_id: currentUser.walletAddress,
         users: [
           { id: user, tickets: [ticket] },
           { id: currentUser.walletAddress, tickets: selectedTickets }
@@ -36,7 +37,7 @@ export const ExchangeModal: React.FC<ModalPageProps> = ({ nav }: ModalPageProps)
   return (
     <ModalPage nav={nav} onClose={back} header={<ModalPageHeader>Выбор билетов для обмена</ModalPageHeader>}>
       {tickets.isLoading || events.isLoading
-        ? <Spinner />
+        ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : <Group>
           <List>
             {tickets.data.filter((item: any) => item.user_id === currentUser.walletAddress).map((e: any) => {

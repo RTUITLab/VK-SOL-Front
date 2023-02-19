@@ -33,13 +33,13 @@ function EventPage(props: EventPagetypes) {
   const successSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Done />}
-  >
+                          >
     Билет успешно приобретён
   </Snackbar>
   const errorSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Error />}
-  >
+                        >
     Ошибка при приобретении билета
   </Snackbar>
 
@@ -74,7 +74,7 @@ function EventPage(props: EventPagetypes) {
       setSnackbar(<Snackbar
         onClose={() => setSnackbar(null)}
         before={<Icon24Done />}
-                  >
+      >
         Адрес успешно скопирован
       </Snackbar>)
     )      
@@ -139,14 +139,14 @@ function EventPage(props: EventPagetypes) {
                   Получить билет
                 </Button>
                 : buy ? <>Подождите, пока обработается платеж</> :
-                  <Button
-                  size='l'
-                  appearance='positive'
-                  mode='outline'
-                  onClick={()=>{setBuy(!buy)}}
-                >
-                  Купить билет
-                </Button>
+                <Button
+                    size='l'
+                    appearance='positive'
+                    mode='outline'
+                    onClick={()=>{setBuy(!buy)}}
+                  >
+                    Купить билет
+                  </Button>
             }
 
 
@@ -155,7 +155,7 @@ function EventPage(props: EventPagetypes) {
             <IconButton onClick={()=>{changeFav()}}>
               {isLiked ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>
-            <Cell indicator={<Counter>{data.amount || data.amount-data.minted}</Counter>}>
+            <Cell indicator={<Counter>{data.amount}</Counter>}>
               Всего билетов
             </Cell>
           </div>
@@ -169,7 +169,7 @@ function EventPage(props: EventPagetypes) {
           {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
             onClick={() => push('/events/?modal=wallet')}
             before={<Icon28AddOutline />}
-          >Добавить</CellButton> : null}
+                                                                                    >Добавить</CellButton> : null}
         </Div>
         {
           data && data.white_list.map((item, index) => <SimpleCell key={index} onClick={copy} after={<Icon28CopyOutline />}>

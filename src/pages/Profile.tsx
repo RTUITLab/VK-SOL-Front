@@ -16,7 +16,7 @@ import {
 import React from 'react'
 import { useAtomValue, useSetAtomState } from '@mntm/precoil'
 import { userAtom, vkUserAtom } from '../store'
-import { Icon28AddOutline, Icon28AddSquareOutline } from '@vkontakte/icons'
+import { Icon28AddOutline, Icon28AddSquareOutline, Icon28RemoveCircleOutline } from '@vkontakte/icons'
 import bridge, { UserInfo } from '@vkontakte/vk-bridge'
 import { v4 as uuidv4 } from 'uuid'
 import { api } from '../api'
@@ -63,6 +63,14 @@ function Profile({ nav }: ProfileProps) {
         .catch(err => console.error('err', err))
     })
   }
+  
+  function handleRemoveWallet() {
+    setUser({ ...user, walletAddress: '' })
+    bridge.send('VKWebAppStorageSet', {
+      key: 'address',
+      value: ''
+    })
+  }
 
   return (
     <Panel nav={nav}>
@@ -72,7 +80,10 @@ function Profile({ nav }: ProfileProps) {
           {vkUser.first_name} {vkUser.last_name}
         </SimpleCell>
 
-        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} readOnly={true} />}>
+        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} onClick={(e)=>{e.stopPropagation()
+          handleChange}}
+                                                   />}
+        >
           Я администратор
         </SimpleCell>
       </Group>
@@ -90,8 +101,10 @@ function Profile({ nav }: ProfileProps) {
             </SimpleCell>
           </Group>}
 
-        {user.walletAddress === '' && <SimpleCell onClick={handleAddWallet} before={<Icon28AddSquareOutline />}>
+        {user.walletAddress === '' ? <SimpleCell onClick={handleAddWallet} before={<Icon28AddSquareOutline />}>
           Добавить кошелёк
+        </SimpleCell> : <SimpleCell onClick={handleRemoveWallet} before={<Icon28RemoveCircleOutline />}>
+          Отключить кошелёк
         </SimpleCell>}
       </Group>
     </Panel>

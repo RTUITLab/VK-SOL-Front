@@ -1,10 +1,10 @@
-import { useAtomValue } from "@mntm/precoil"
-import { Button, Cell, Div, Group, Header, Panel, PanelHeader, PanelHeaderContent, PanelProps, Separator, Spacing, Spinner } from "@vkontakte/vkui"
-import { userAtom } from "../store"
-import React from "react"
-import { useMutation, useQuery } from "@tanstack/react-query"
-import { api, ExchangeRequest } from "../api"
-import Ticket from "../components/Ticket/Ticket"
+import { useAtomValue } from '@mntm/precoil'
+import { Button, Cell, Div, Group, Header, Panel, PanelHeader, PanelHeaderContent, PanelProps, Separator, Spacing, Spinner } from '@vkontakte/vkui'
+import { userAtom } from '../store'
+import React from 'react'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { api, ExchangeRequest } from '../api'
+import Ticket from '../components/Ticket/Ticket'
 
 function Requests({ nav }: PanelProps) {
   const user = useAtomValue(userAtom)
@@ -36,7 +36,7 @@ function Requests({ nav }: PanelProps) {
                   <Group key={item._id}>
                     <Header>{item.user_id !== user.walletAddress ? 'Входящяя' : 'Исходящяя'}</Header>
 
-                    {(item.users.find((u) => u.id === user.walletAddress)!.tickets || []).map((ticket_id: any) => {
+                    {(item.users.find((u) => u.id === user.walletAddress)?.tickets || []).map((ticket_id: any) => {
                       const ticket = tickets.data.find((i: any) => ticket_id === i._id)
                       const t_event = events.data.find((i: any) => i._id === ticket.event_id)
                       return (
@@ -62,7 +62,7 @@ function Requests({ nav }: PanelProps) {
                     </Spacing>
                     <Spacing size={16} />
 
-                    {item.users.find((u) => u.id !== user.walletAddress)!.tickets.map((ticket_id: any) => {
+                    {item.users.find((u) => u.id !== user.walletAddress)?.tickets.map((ticket_id: any) => {
                       const ticket = tickets.data.find((i: any) => ticket_id === i._id)
                       const t_event = events.data.find((i: any) => i._id === ticket.event_id)
                       return (
@@ -84,8 +84,8 @@ function Requests({ nav }: PanelProps) {
                     }
 
                     <Div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Button size="l" mode="outline" onClick={() => discardMutation.mutate(item._id!)}>Отклонить</Button>
-                      {item.users[0].id === user.walletAddress ? <Button size="l" onClick={() => approveMutation.mutate(item._id!)}>Принять</Button> : <></>}
+                      <Button size='l' mode='outline' onClick={() => discardMutation.mutate(item._id!)}>Отклонить</Button>
+                      {item.users[0].id === user.walletAddress ? <Button size='l' onClick={() => approveMutation.mutate(item._id!)}>Принять</Button> : <></>}
                     </Div>
                   </Group>
                 )

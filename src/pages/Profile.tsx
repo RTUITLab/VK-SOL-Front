@@ -6,10 +6,12 @@ import {
   Group,
   Header,
   Headline,
+  InfoRow,
   Panel,
   PanelHeader,
   PanelHeaderContent,
   SimpleCell,
+  Spacing,
   Subhead,
   Switch,
   Text,
@@ -63,7 +65,7 @@ function Profile({ nav }: ProfileProps) {
           })
           .then(() => newWindow?.close())
       }  catch {
-        newWindow.document.body.innerHTML=('Ошибка. Установите кошелек Phantom, водйите в devnet блокчейн или обновите страницу. Это окно закроется через 5 секунд')
+        newWindow.document.body.innerHTML=('Ошибка. Установите кошелек Phantom, войдите в devnet блокчейн или обновите страницу. Это окно закроется через 5 секунд')
         setTimeout(()=>{newWindow?.close();window.open('https://phantom.app/', '_blank')},5000)
       }})
   
@@ -94,10 +96,12 @@ function Profile({ nav }: ProfileProps) {
         <Header>Криптокошелёк</Header>
         {user.walletAddress !== '' &&
           <Group>
-            <SimpleCell style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'no-wrap' }}>
+            <SimpleCell style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'nowrap' }}>
               <Div>
-                <img width={50} src='https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png' />
-                <Headline level='2'>Phantom</Headline >
+                <div>Кошелёк подключен</div>
+                <Spacing size={16} />
+                <InfoRow header={'Phantom'}><img width={50} src='https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png' />
+                </InfoRow>
               </Div>
               <Div><Headline level='1'>{user.walletAddress}</Headline></Div>
             </SimpleCell>
@@ -112,7 +116,7 @@ function Profile({ nav }: ProfileProps) {
           header='Поддерживаемые кошельки:'
           asideMode='expand'
           onClick={()=>window.open('https://phantom.app/','Phantom')}
-          actions={<Text>Phantom</Text>}
+          actions={<Text>Phantom (devnet)</Text>}
         />
       </Group>
     </Panel>

@@ -1,6 +1,6 @@
 {
   "name": "pochita",
-  "version": "1.0.1",
+  "version": "1.9.1",
   "main": "index.tsx",
   "homepage": "./",
   "scripts": {

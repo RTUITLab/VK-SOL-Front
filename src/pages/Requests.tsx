@@ -31,12 +31,12 @@ function Requests({ nav }: PanelProps) {
           ? <div style={{ textAlign: 'center', margin: 20 }}>{'Заявки на обмен билетами отсутствуют'}</div>
           : (
             <>
-              {exchanges.data.filter((item: ExchangeRequest) => item.users[0].id === user.walletAddress || item.users[1].id === user.walletAddress).map((item: ExchangeRequest) => {
+              {exchanges.data?.filter((item: ExchangeRequest) => item.users[0].id === user.walletAddress || item.users[1].id === user.walletAddress)?.map((item: ExchangeRequest) => {
                 return (
                   <Group key={item._id}>
                     <Header>{item.user_id !== user.walletAddress ? 'Входящяя' : 'Исходящяя'}</Header>
 
-                    {(item.users.find((u) => u.id === user.walletAddress)?.tickets || []).map((ticket_id: any) => {
+                    {(item.users?.find((u) => u.id === user.walletAddress)?.tickets || []).map((ticket_id: any) => {
                       const ticket = tickets.data.find((i: any) => ticket_id === i._id)
                       const t_event = events.data.find((i: any) => i._id === ticket.event_id)
                       return (
@@ -62,7 +62,7 @@ function Requests({ nav }: PanelProps) {
                     </Spacing>
                     <Spacing size={16} />
 
-                    {item.users.find((u) => u.id !== user.walletAddress)?.tickets.map((ticket_id: any) => {
+                    {item.users?.find((u) => u.id !== user.walletAddress)?.tickets?.map((ticket_id: any) => {
                       const ticket = tickets.data.find((i: any) => ticket_id === i._id)
                       const t_event = events.data.find((i: any) => i._id === ticket.event_id)
                       return (

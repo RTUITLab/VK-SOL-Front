@@ -1,7 +1,7 @@
 import { back, useParams } from "@cteamdev/router";
 import { useAtomValue } from "@mntm/precoil";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Button, Cell, Div, Group, List, ModalCard, ModalCardProps, ModalPage, ModalPageHeader, ModalPageProps, Spacing, Spinner } from "@vkontakte/vkui";
+import { Button, Cell, Div, Group, List, ModalPage, ModalPageHeader, ModalPageProps, Spacing, Spinner } from "@vkontakte/vkui";
 import React, { useState } from "react";
 import { api } from "../api";
 import Ticket from "../components/Ticket/Ticket";

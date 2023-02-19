@@ -1,7 +1,7 @@
 import React from 'react'
 import { Cell, Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
 import { useQuery } from '@tanstack/react-query'
-import { api } from '../api'
+import { api, ExchangeRequest } from '../api'
 import { useAtomValue } from '@mntm/precoil'
 import { userAtom } from '../store'
 import Ticket from '../components/Ticket/Ticket'
@@ -9,6 +9,7 @@ import { push } from '@cteamdev/router'
 
 function Collections({ nav }: PanelProps) {
   const user = useAtomValue(userAtom)
+  const exchanges = useQuery({ queryKey: ['UserExchanges'], queryFn: () => api.getUserExchanges(user.walletAddress) })
   const tickets = useQuery({ queryKey: ['TicketsForSell'], queryFn: api.getTicketsForSell })
   const events = useQuery({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
 
@@ -21,7 +22,9 @@ function Collections({ nav }: PanelProps) {
         : tickets.data.length == 0
           ? <div style={{ textAlign: 'center', margin: 20 }}>{'Ни один билет не выставлен на обмен'}</div>
           : <Group>
-            {tickets.data.map((ticket: any) => {
+            {tickets.data.filter((ticket: any) => !exchanges.data.find((exchange: ExchangeRequest) => 
+              exchange.users.find((user) => user.tickets.find((t) => t === ticket._id))
+            )).filter(((ticket: any) => ticket.user_id !== user.walletAddress)).map((ticket: any) => {
               const t_event = events.data.find((i: any) => i._id === ticket.event_id)
               return (
                 <React.Fragment  key={ticket._id}>

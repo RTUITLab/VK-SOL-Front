@@ -24,7 +24,6 @@ function Ticket(props: TicketProps) {
 
   const { error, mutate } = useMutation({ mutationKey: ['ticket_trade'], mutationFn: (status: boolean) => api.createTicketTrade(props.id, status), onError: handleError, onSuccess: handleSuccess })
 
-  console.log(props.forSell);
   const [snackbar, setSnackbar] = useState<JSX.Element | null>(null)
   const successSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}

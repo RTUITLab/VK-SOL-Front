@@ -2,7 +2,7 @@ import { useAtomValue } from "@mntm/precoil"
 import { Button, Cell, Div, Group, Header, Panel, PanelHeader, PanelHeaderContent, PanelProps, Separator, Spacing, Spinner } from "@vkontakte/vkui"
 import { userAtom } from "../store"
 import React from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { api, ExchangeRequest } from "../api"
 import Ticket from "../components/Ticket/Ticket"
 
@@ -11,6 +11,15 @@ function Requests({ nav }: PanelProps) {
   const exchanges = useQuery({ queryKey: ['UserExchanges'], queryFn: () => api.getUserExchanges(user.walletAddress) })
   const events = useQuery({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
   const tickets = useQuery({ queryKey: ['AllTickets'], queryFn: api.getAllTickets })
+
+  const discardMutation = useMutation({ mutationFn: api.discardExchange, mutationKey: ['AddExchange'], onSuccess: refetchAll, onError: refetchAll })
+  const approveMutation = useMutation({ mutationFn: api.approveExchange, mutationKey: ['AddExchange'], onSuccess: refetchAll, onError: refetchAll })
+
+  function refetchAll() {
+    exchanges.refetch()
+    events.refetch()
+    tickets.refetch()
+  }
 
   return (
     <Panel nav={nav}>
@@ -74,9 +83,9 @@ function Requests({ nav }: PanelProps) {
                     })
                     }
 
-                    <Div style={{display: 'flex', justifyContent: 'space-between'}}>
-                      <Button size="l" mode="outline">Отклонить</Button>
-                      {item.users[0].id === user.walletAddress ? <Button size="l">Принять</Button> : <></>}
+                    <Div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Button size="l" mode="outline" onClick={() => discardMutation.mutate(item._id!)}>Отклонить</Button>
+                      {item.users[0].id === user.walletAddress ? <Button size="l" onClick={() => approveMutation.mutate(item._id!)}>Принять</Button> : <></>}
                     </Div>
                   </Group>
                 )

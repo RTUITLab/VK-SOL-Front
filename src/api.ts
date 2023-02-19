@@ -54,5 +54,9 @@ export const api = {
 
   getQr: (wallet: string, ticket: string) => fetch(`https://levandrovskiy.ru/api/getQR?wallet=${wallet}&ticket=${ticket}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
 
-  createTicketTrade: (id: string, status: boolean) => fetch(`https://levandrovskiy.ru/api/ticket/${id}/sell/${status}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json())
+  createTicketTrade: (id: string, status: boolean) => fetch(`https://levandrovskiy.ru/api/ticket/${id}/sell/${status}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
+  
+  approveExchange: (id: string) => fetch(`https://levandrovskiy.ru/api/exchange/${id}/approve`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
+  
+  discardExchange: (id: string) => fetch(`https://levandrovskiy.ru/api/exchange/${id}/discard`, { method: 'PUT', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json())
 }

@@ -22,17 +22,12 @@ import { api, APIEventType } from '../api'
 
 
 export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
-  const vkUser: UserInfo = useAtomValue(vkUserAtom)
-  const user = useAtomValue(userAtom)
-  const setUser = useSetAtomState(userAtom)
-
   const { data, isLoading } = useQuery<APIEventType[]>({ queryKey: ['AllEvents'], queryFn: api.getAllEvents })
 
   const [searchInput, setSearchInput] = useState('')
-  const [events, setEvents] = useState<APIEventType[] | undefined>(data)
 
   const handleSearch = (e) => {
-    let search = e.target.value
+    const search = e.target.value
     setSearchInput(search)
   }
 

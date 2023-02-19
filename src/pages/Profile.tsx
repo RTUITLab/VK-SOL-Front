@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Banner,
   Card,
   Div,
   Group,
@@ -11,6 +12,7 @@ import {
   SimpleCell,
   Subhead,
   Switch,
+  Text,
   Title
 } from '@vkontakte/vkui'
 import React from 'react'
@@ -41,6 +43,7 @@ function Profile({ nav }: ProfileProps) {
 
     const uuid = uuidv4()
 
+    //console.log(window.location)
     const newWindow = window.open(window.location.href, 'NFT', 'popup')
     newWindow?.addEventListener('load', async () => {
       const provider = await newWindow?.phantom?.solana.connect()
@@ -55,7 +58,6 @@ function Profile({ nav }: ProfileProps) {
                 value: data.address
               })
                 .catch(() => console.log('err saving address in storage'))
-              console.log(provider)
             })
             .catch(err => console.error('err', err))
         })
@@ -80,10 +82,7 @@ function Profile({ nav }: ProfileProps) {
           {vkUser.first_name} {vkUser.last_name}
         </SimpleCell>
 
-        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} onClick={(e)=>{e.stopPropagation()
-          handleChange}}
-                                                   />}
-        >
+        <SimpleCell onClick={handleChange} before={<Switch checked={user.isAdmin} onClick={(e)=>{e.stopPropagation();handleChange}} />}>
           Я администратор
         </SimpleCell>
       </Group>
@@ -106,6 +105,12 @@ function Profile({ nav }: ProfileProps) {
         </SimpleCell> : <SimpleCell onClick={handleRemoveWallet} before={<Icon28RemoveCircleOutline />}>
           Отключить кошелёк
         </SimpleCell>}
+        <Banner
+          header='Поддерживаемые кошельки:'
+          asideMode='expand'
+          onClick={()=>window.open('https://phantom.app/','Phantom')}
+          actions={<Text>Phantom</Text>}
+        />
       </Group>
     </Panel>
   )

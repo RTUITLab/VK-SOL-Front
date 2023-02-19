@@ -92,7 +92,9 @@ function EventPage(props: EventPagetypes) {
       {isLoading || loadLike ? <Spinner size='large' /> : data &&
         <Group>
           <div className='event-page'>
-            <img className='event-page__image' src={data.cover ? `https://levandrovskiy.ru${data.cover}` : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+            <a href={data.cover ? `https://levandrovskiy.ru${data.cover}` : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} target='_blank' rel='noreferrer'>
+              <img className='event-page__image' src={data.cover ? `https://levandrovskiy.ru${data.cover}` : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+            </a>
             <div className='event-page__info'>
               <Headline size={3} >
                 {data.description}

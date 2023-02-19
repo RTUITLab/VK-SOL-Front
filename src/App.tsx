@@ -49,7 +49,7 @@ export const App: React.FC = () => {
         })
         .catch((error) => {
           // Ошибка
-          console.log(error)
+          console.log('walletAddress unsuccessfully unrestored')
         })
     }
     load()

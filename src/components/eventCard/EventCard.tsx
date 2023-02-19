@@ -63,11 +63,13 @@ function EventCard(props: EventCardprops) {
       link: 'https://vk.com/app6909581'
     })
   }
-  console.log(props.image, props.eventName);
+  
   return (
     <Card mode='shadow'>
       <div className='event-card'>
-        <img className='event-card__image' src={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+        <a href={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} target='_blank' rel='noreferrer'>
+          <img className='event-card__image' src={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+        </a>
         <div className='event-card__info'>
           <Title level={'2'} weight='medium'>
             {props.eventName}

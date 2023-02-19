@@ -1,11 +1,11 @@
-import { back, push, replace, useCurrentState } from '@cteamdev/router'
+import { back, push, replace, useCurrentState, useParams } from '@cteamdev/router'
 import { useAtomValue } from '@mntm/precoil'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Icon16ClockOutline, Icon16DonateOultine, Icon16Location, Icon24Done, Icon24Error, Icon28AddOutline, Icon28CopyOutline, Icon28LikeFillRed, Icon28LikeOutline, Icon28UserOutline } from '@vkontakte/icons'
 import bridge from '@vkontakte/vk-bridge'
 import { Button, Cell, CellButton, Counter, Div, Group, Header, Headline, IconButton, MiniInfoCell, Panel, PanelHeader, PanelHeaderBack, SimpleCell, Snackbar, Spinner, SplitCol, SplitLayout, TabsItem, Title } from '@vkontakte/vkui'
 import { func } from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { api, APIEventType } from '../../api'
 import { eventIdAtom, userAtom } from '../../store'
 import './eventpage.css'
@@ -15,14 +15,14 @@ type EventPagetypes = {
 }
 
 function EventPage(props: EventPagetypes) {
-  const eventId = useAtomValue(eventIdAtom)
+  const eventId = useParams().id
   const user = useAtomValue(userAtom)
   const queryClient = useQueryClient()
   const [buy, setBuy] = useState(false)
 
-  const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event'], queryFn: () => api.getEventById(eventId) })
+  const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event', eventId], queryFn: () => api.getEventById(eventId) })
   const { mutate, error } = useMutation({ mutationKey: ['create_ticket'], mutationFn: () => api.createTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
-  const { data:isLiked } = useQuery({ queryKey:['like', { id : data?._id }], queryFn:() => bridge.send('VKWebAppStorageGet', {
+  const { data:isLiked, isLoading:loadLike } = useQuery({ queryKey:['like', { id : data?._id }], queryFn:() => bridge.send('VKWebAppStorageGet', {
     keys: ['liked' + data?._id.toString()]
   })
     .then((data) =>
@@ -33,13 +33,13 @@ function EventPage(props: EventPagetypes) {
   const successSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Done />}
-                          >
+  >
     Билет успешно приобретён
   </Snackbar>
   const errorSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Error />}
-                        >
+  >
     Ошибка при приобретении билета
   </Snackbar>
 
@@ -74,7 +74,7 @@ function EventPage(props: EventPagetypes) {
       setSnackbar(<Snackbar
         onClose={() => setSnackbar(null)}
         before={<Icon24Done />}
-      >
+                  >
         Адрес успешно скопирован
       </Snackbar>)
     )      
@@ -86,9 +86,8 @@ function EventPage(props: EventPagetypes) {
         before={<PanelHeaderBack onClick={() => replace('/')} />}
       >
         {data && data.name}
-        {isLoading && ' Загрузка'}
       </PanelHeader>
-      {data &&
+      {isLoading || loadLike ? <Spinner size='large' /> : data &&
       <Group>
         <div className='event-page'>
           <img className='event-page__image' src={`https://levandrovskiy.ru${data.cover}`} />
@@ -139,14 +138,14 @@ function EventPage(props: EventPagetypes) {
                   Получить билет
                 </Button>
                 : buy ? <>Подождите, пока обработается платеж</> :
-                <Button
-                    size='l'
-                    appearance='positive'
-                    mode='outline'
-                    onClick={()=>{setBuy(!buy)}}
-                  >
-                    Купить билет
-                  </Button>
+                  <Button
+                  size='l'
+                  appearance='positive'
+                  mode='outline'
+                  onClick={()=>{setBuy(!buy)}}
+                >
+                  Купить билет
+                </Button>
             }
 
 
@@ -169,7 +168,7 @@ function EventPage(props: EventPagetypes) {
           {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
             onClick={() => push('/events/?modal=wallet')}
             before={<Icon28AddOutline />}
-                                                                                    >Добавить</CellButton> : null}
+          >Добавить</CellButton> : null}
         </Div>
         {
           data && data.white_list.map((item, index) => <SimpleCell key={index} onClick={copy} after={<Icon28CopyOutline />}>

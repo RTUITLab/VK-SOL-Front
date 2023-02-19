@@ -19,8 +19,6 @@ type EventCardprops = {
 }
 
 function EventCard(props: EventCardprops) {
-  const setId = useSetAtomState(eventIdAtom)
-  const eventId = useAtomValue(eventIdAtom)
 
   const queryClient = useQueryClient()
 
@@ -54,8 +52,7 @@ function EventCard(props: EventCardprops) {
   }
 
   function handleMore() {
-    setId(props.id)
-    replace('/current_event')
+    push(`/current_event?id=${props.id}`)
   }
   function handleShare() {
     bridge.send('VKWebAppShare', {

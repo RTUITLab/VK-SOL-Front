@@ -41,13 +41,13 @@ function Ticket(props: TicketProps) {
   </Snackbar>
 
   function handleError() {
-    console.log(error);
+    console.log(error)
     setSnackbar(errorSnackbar)
   }
 
   function handleSuccess() {
     queryClient.invalidateQueries(['AllTickets'])
-    console.log('success');
+    console.log('success')
     setSnackbar(successSnackbar)
   }
 
@@ -112,7 +112,9 @@ function Ticket(props: TicketProps) {
               Обменять
             </Button>) : null}
       </div>
-      <img className='ticket__image' src={props.image ?? 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+      <a href={props.image} target='_blank' rel='noreferrer'>
+        <img className='ticket__image' src={props.image} />
+      </a>
       {props.with_qr &&
         <IconButton className='ticket__qr' onClick={() => push(`/tickets?modal=qr&ticket=${props.ticket}`)}>
           <Icon28QrCodeOutline fill='fff' />

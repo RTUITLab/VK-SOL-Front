@@ -7,6 +7,7 @@ import { Button, Caption, Card, Cell, Group, IconButton, MiniInfoCell, SimpleCel
 import React, { useEffect, useState } from 'react'
 import './eventcard.css'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { api } from '../../api'
 type EventCardprops = {
   image?: string,
   eventName: string,
@@ -21,6 +22,8 @@ type EventCardprops = {
 function EventCard(props: EventCardprops) {
 
   const queryClient = useQueryClient()
+  const viewedMutations = useMutation({ mutationFn: api.addView, mutationKey: ['AddExchange'], onSuccess: () => { }, onError: () => { } })
+
 
   const { data } = useQuery({
     queryKey: ['like', { id: props.id }], queryFn:
@@ -52,6 +55,7 @@ function EventCard(props: EventCardprops) {
   }
 
   function handleMore() {
+    viewedMutations.mutate(props.id)
     push(`/current_event?id=${props.id}`)
   }
   function handleShare() {
@@ -59,11 +63,13 @@ function EventCard(props: EventCardprops) {
       link: 'https://vk.com/app6909581'
     })
   }
-  console.log(props.image, props.eventName);
+  
   return (
     <Card mode='shadow'>
       <div className='event-card'>
-        <img className='event-card__image' src={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+        <a href={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} target='_blank' rel='noreferrer'>
+          <img className='event-card__image' src={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
+        </a>
         <div className='event-card__info'>
           <Title level={'2'} weight='medium'>
             {props.eventName}
@@ -123,7 +129,7 @@ function EventCard(props: EventCardprops) {
           </div>
           {props.image ? <Button size='l' mode='outline' onClick={handleMore}>
             Подробнее
-          </Button> : null}
+            </Button> : null}
 
         </div>
       </div>

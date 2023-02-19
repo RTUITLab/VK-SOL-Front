@@ -21,14 +21,13 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
   const user = useAtomValue(userAtom)
 
   function handlaSuccess() {
-    console.log('yes');
+    console.log('yes')
   }
   function handlaError() {
-    console.log('no');
+    console.log('no')
   }
 
   const { mutate, isLoading } = useMutation({ mutationFn: api.createEvent, mutationKey: ['AllEvents'], onSuccess: handlaSuccess, onError: handlaError })
-
 
 
   function handleCreate() {
@@ -75,79 +74,80 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
         isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
 
           <FormLayout>
-            <Banner before={<Icon28InfoCircle />} header='Создание мероприятие может занять некоторе время, около 43 секунд'></Banner>
-            <FormItem top='Название мероприятия'>
+          <Banner before={<Icon28InfoCircle />} header='Создание мероприятие может занять некоторе время, около 43 секунд'></Banner>
+          <FormItem top='Название мероприятия'>
               <Input
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type={'text'}
-                placeholder='Введите название'
-              />
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type={'text'}
+              placeholder='Введите название'
+            />
             </FormItem>
-            <FormItem top='Описание мероприятия'>
+          <FormItem top='Описание мероприятия'>
               <Input
-                required
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                type={'text'}
-                placeholder='Введите описание'
-              />
+              required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              type={'text'}
+              placeholder='Введите описание'
+            />
             </FormItem>
-            <FormItem top='Адрес мероприятия'>
+          <FormItem top='Адрес мероприятия'>
               <Input
-                required
-                value={place}
-                onChange={(e) => setPlace(e.target.value)}
-                type={'text'}
-                placeholder='Введите адрес'
-              />
+              required
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+              type={'text'}
+              placeholder='Введите адрес'
+            />
             </FormItem>
-            <FormItem top='Количество билетов'>
+          <FormItem top='Количество билетов'>
               <Input
-                required
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-                min={1}
-                type={'number'}
-                placeholder='Введите количество'
-              />
+              required
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              min={1}
+              max={4}
+              type={'number'}
+              placeholder='Введите количество'
+            />
             </FormItem>
-            <SplitLayout>
+          <SplitLayout>
               <SplitCol width={'50%'}>
-                <FormItem top='Дата мероприятия'>
+              <FormItem top='Дата мероприятия'>
                   <Input
-                    required
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    type={'date'}
-                    placeholder='Введите дату'
-                  />
+                  required
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  type={'date'}
+                  placeholder='Введите дату'
+                />
                 </FormItem>
-              </SplitCol>
+            </SplitCol>
               <SplitCol width={'50%'}>
-                <FormItem top='Время мероприятия'>
+              <FormItem top='Время мероприятия'>
                   <Input
-                    required
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    type={'time'}
-                    placeholder='Введите время'
-                  />
+                  required
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  type={'time'}
+                  placeholder='Введите время'
+                />
                 </FormItem>
-              </SplitCol>
+            </SplitCol>
             </SplitLayout>
-            {error && <Banner
-              header="Ошибка"
+          {error && <Banner
+              header='Ошибка'
               subheader={error}
-            />}
+                      />}
 
-            <FormItem>
+          <FormItem>
               <Button size='l' mode='primary' onClick={handleCreate}>
-                Создать мероприятие
+              Создать мероприятие
               </Button>
             </FormItem>
-          </FormLayout>
+        </FormLayout>
       }
     </ModalCard>
   )

@@ -17,7 +17,10 @@ function Collections({ nav }: PanelProps) {
     <Panel nav={nav}>
       <PanelHeader><PanelHeaderContent>Коллекции</PanelHeaderContent></PanelHeader>
 
-      {tickets.isLoading || events.isLoading
+      {user.walletAddress==='' ? 
+        <><div style={{ textAlign: 'center', margin: 20 }}>{'Подключите кошелек для просмотра своих коллекций'}</div>
+          <div style={{ textAlign: 'center', margin: 20 }}>{'Это можно сделать во вкладке "Профиль"'}</div></>
+        : tickets.isLoading || events.isLoading
         ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : tickets.data.length == 0
           ? <div style={{ textAlign: 'center', margin: 20 }}>{'Ни один билет не выставлен на обмен'}</div>

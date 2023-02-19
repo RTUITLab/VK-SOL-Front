@@ -26,23 +26,24 @@ function Events({ nav }: PanelProps) {
       >
         <PanelHeaderContent>Мероприятия
         </PanelHeaderContent></PanelHeader>
-      {isLoading && <Spinner size={'large'} style={{ margin: '20px 0' }} />}
-      <Spacing />
-      <CardGrid
-        size='l'
-      >
-        {data ? data.map((item) => <EventCard
-          id={item._id}
-          key={item._id}
-          eventName={item.name}
-          description={item.description}
-          image={`https://levandrovskiy.ru${item.cover}`}
-          address={item.place}
-          time={item.date.split('T')[1]}
-          date={item.date.split('T')[0]}
-          owner={true}
-                                   />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет созданных мероприятий'}</div>}
-      </CardGrid>
+      {user.isAdmin ?  <><div style={{ textAlign: 'center', margin: 20 }}>{'Подключите кошелек для создания мероприятий'}</div>
+        <div style={{ textAlign: 'center', margin: 20 }}>{'Это можно сделать во вкладке "Профиль'}</div></> : isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
+        <><Spacing />
+          <CardGrid
+            size='l'
+          >
+            {data ? data.map((item) => <EventCard
+              id={item._id}
+              key={item._id}
+              eventName={item.name}
+              description={item.description}
+              image={`https://levandrovskiy.ru${item.cover}`}
+              address={item.place}
+              time={item.date.split('T')[1]}
+              date={item.date.split('T')[0]}
+              owner={true}
+            />) : <div style={{ textAlign: 'center', margin: 20 }}>{'У вас пока нет созданных мероприятий'}</div>}
+          </CardGrid></>}
     </Panel>
   )
 }

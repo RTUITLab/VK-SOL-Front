@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import bridge from '@vkontakte/vk-bridge'
-import { Panel, PanelHeader, PanelHeaderContent, PanelProps } from '@vkontakte/vkui'
+import { Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing } from '@vkontakte/vkui'
 import React from 'react'
 import EventCard from '../components/eventCard/EventCard'
 
@@ -36,7 +36,15 @@ function Favorites({ nav }: PanelProps) {
   return (
     <Panel nav={nav}>
       <PanelHeader><PanelHeaderContent>Избранное</PanelHeaderContent></PanelHeader>
-      {data?.map(card => <EventCard image={'https://levandrovskiy.ru' + card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>)}
+      <Spacing />
+
+      {data?.map(card => (
+        <>
+          <EventCard image={'https://levandrovskiy.ru' + card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>
+          <Spacing></Spacing>
+        </>
+      ))}
+
     </Panel>
   )
 }

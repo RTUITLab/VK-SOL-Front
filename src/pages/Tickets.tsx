@@ -16,7 +16,8 @@ function Tickets({ nav }: PanelProps) {
       <PanelHeader >
         <PanelHeaderContent>Мои Билеты</PanelHeaderContent>
       </PanelHeader>
-      {tickets.isLoading || events.isLoading
+      {user.walletAddress==='' ?  <><div style={{ textAlign: 'center', margin: 20 }}>{'Подключите кошелек для просмотра своих билетов'}</div>
+        <div style={{ textAlign: 'center', margin: 20 }}>{'Это можно сделать во вкладке "Профиль'}</div></> : tickets.isLoading || events.isLoading
         ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : <Group>
           <List>

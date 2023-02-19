@@ -23,6 +23,7 @@ import Collections from './pages/Collections'
 import Requests from './pages/Requests'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import EventPage from './pages/EventPage/EventPage'
+import { WalletConnect } from './pages/WalletConnect'
 
 const queryClient = new QueryClient()
 
@@ -85,6 +86,9 @@ export const App: React.FC = () => {
               </View>
               <View nav='/requests'>
                 <Requests nav='/' />
+              </View>
+              <View nav='/walletconnect'>
+                <WalletConnect nav='/' />
               </View>
             </Navigation>
           </AppRoot>

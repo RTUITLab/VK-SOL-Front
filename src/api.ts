@@ -15,7 +15,7 @@ export type APIEventType = {
 
 export interface ExchangeRequest {
   users: Array<{
-    user_id: string,
+    id: string,
     tickets: string[]
   }>
 }
@@ -45,4 +45,6 @@ export const api = {
   createExchange: (data: ExchangeRequest) => fetch('https://levandrovskiy.ru/api/exchange', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json()),
 
   getTicket: (event_id: string, user_id: string) => fetch('https://levandrovskiy.ru/api/ticket', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id, event_id }) }).then((response) => response.json()),
+  
+  getUserExchanges: (user_id: string) => fetch(`https://levandrovskiy.ru/api/exchange?user_id=${user_id}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json()),
 }

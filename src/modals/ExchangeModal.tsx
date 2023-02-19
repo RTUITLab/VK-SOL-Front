@@ -26,8 +26,8 @@ export const ExchangeModal: React.FC<ModalPageProps> = ({ nav }: ModalPageProps)
     if (selectedTickets.length !== 0) {
       mutate({
         users: [
-          { user_id: user, tickets: [ticket] },
-          { user_id: currentUser.walletAddress, tickets: selectedTickets }
+          { id: user, tickets: [ticket] },
+          { id: currentUser.walletAddress, tickets: selectedTickets }
         ]
       })
     }

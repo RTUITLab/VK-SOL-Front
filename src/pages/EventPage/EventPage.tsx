@@ -130,7 +130,7 @@ function EventPage(props: EventPagetypes) {
 
               </MiniInfoCell>
               {
-                data.white_list.includes(user.walletAddress) ?
+                (data.white_list.includes(user.walletAddress) && !user.isAdmin) ?
                   <Button
                     size='l'
                     appearance='accent'

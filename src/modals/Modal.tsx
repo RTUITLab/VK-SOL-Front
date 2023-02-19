@@ -6,6 +6,7 @@ import { userAtom } from '../store'
 import { EventType } from '../types/event'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { api } from '../api'
+import { Icon16InfoCircle, Icon28InfoCircle } from '@vkontakte/icons'
 
 export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
 
@@ -54,7 +55,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
 
     if (data.user_id) {
       console.log(data)
-      
+
       mutate(data)
       setError('')
       back()
@@ -74,6 +75,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
         isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
 
           <FormLayout>
+            <Banner before={<Icon28InfoCircle />} header='Создание мероприятие может занять некоторе время, около 43 секунд'></Banner>
             <FormItem top='Название мероприятия'>
               <Input
                 required

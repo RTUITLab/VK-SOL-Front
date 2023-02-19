@@ -45,7 +45,6 @@ function Profile({ nav }: ProfileProps) {
 
     const uuid = uuidv4()
 
-    //console.log(window.location)
     const newWindow = window.open(window.location.href, 'NFT', 'left=10000,top=100,width=300,height=500,popup')
     newWindow?.addEventListener('load', async () => {
       try {

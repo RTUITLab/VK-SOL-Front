@@ -21,6 +21,7 @@ type TicketProps = {
 }
 
 function Ticket(props: TicketProps) {
+  const queryClient = useQueryClient()
 
   const { error, mutate } = useMutation({ mutationKey: ['ticket_trade'], mutationFn: (status: boolean) => api.createTicketTrade(props.id, status), onError: handleError, onSuccess: handleSuccess })
 
@@ -30,6 +31,7 @@ function Ticket(props: TicketProps) {
     onClose={() => setSnackbar(null)}
     before={<Icon24Done />}
   >
+
     Билет успешно выставлен на обмен
   </Snackbar>
   const errorSnackbar = <Snackbar
@@ -45,6 +47,7 @@ function Ticket(props: TicketProps) {
   }
 
   function handleSuccess() {
+    queryClient.invalidateQueries(['AllTickets'])
     console.log('success');
     setSnackbar(successSnackbar)
   }

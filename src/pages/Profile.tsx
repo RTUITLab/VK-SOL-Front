@@ -44,26 +44,29 @@ function Profile({ nav }: ProfileProps) {
     const uuid = uuidv4()
 
     //console.log(window.location)
-    const newWindow = window.open(window.location.href, 'NFT', 'popup')
+    const newWindow = window.open(window.location.href, 'NFT', 'left=10000,top=100,width=300,height=500,popup')
     newWindow?.addEventListener('load', async () => {
-      const provider = await newWindow?.phantom?.solana.connect()
-      const address = await provider.publicKey.toString()
-      await api.authorize(uuid, address)
-        .then(() => {
-          api.getAddress(uuid)
-            .then(data => {
-              setUser({ ...user, walletAddress: data.address })
-              bridge.send('VKWebAppStorageSet', {
-                key: 'address',
-                value: data.address
+      try {
+        const provider = await newWindow?.phantom?.solana.connect()
+        const address = await provider.publicKey.toString()
+        await api.authorize(uuid, address)
+          .then(() => {
+            api.getAddress(uuid)
+              .then(data => {
+                setUser({ ...user, walletAddress: data.address })
+                bridge.send('VKWebAppStorageSet', {
+                  key: 'address',
+                  value: data.address
+                })
+                  .catch(() => console.log('err saving address in storage'))
               })
-                .catch(() => console.log('err saving address in storage'))
-            })
-            .catch(err => console.error('err', err))
-        })
-        .then(() => newWindow?.close())
-        .catch(err => console.error('err', err))
-    })
+          })
+          .then(() => newWindow?.close())
+      }  catch {
+        newWindow.document.body.innerHTML=('Ошибка. Установите кошелек Phantom, водйите в devnet блокчейн или обновите страницу. Это окно закроется через 5 секунд')
+        setTimeout(()=>{newWindow?.close();window.open('https://phantom.app/', '_blank')},5000)
+      }})
+  
   }
   
   function handleRemoveWallet() {

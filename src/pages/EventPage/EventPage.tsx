@@ -18,9 +18,10 @@ function EventPage(props: EventPagetypes) {
   const eventId = useAtomValue(eventIdAtom)
   const user = useAtomValue(userAtom)
   const queryClient = useQueryClient()
+  const [buy, setBuy] = useState(false)
 
   const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event'], queryFn: () => api.getEventById(eventId) })
-  const { mutate, error } = useMutation({ mutationKey: ['get_ticket'], mutationFn: () => api.getTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
+  const { mutate, error } = useMutation({ mutationKey: ['create_ticket'], mutationFn: () => api.createTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
   const { data:isLiked } = useQuery({ queryKey:['like', { id : data?._id }], queryFn:() => bridge.send('VKWebAppStorageGet', {
     keys: ['liked' + data?._id.toString()]
   })
@@ -59,11 +60,12 @@ function EventPage(props: EventPagetypes) {
     console.log('error', error)
   }
   function handleSuccess() {
+    queryClient.invalidateQueries(['current_event'])
     setSnackbar(successSnackbar)
     console.log('success')
   }
 
-  function handleGetTicket() {
+  function handleCreateTicket() {
     mutate()
   }
 
@@ -121,15 +123,16 @@ function EventPage(props: EventPagetypes) {
                   size='l'
                   appearance='accent'
                   mode='secondary'
-                  onClick={handleGetTicket}
+                  onClick={handleCreateTicket}
                 >
                   Получить билет
                 </Button>
-                :
-                <Button
+                : buy ? <>Подождите, пока обработается платеж</> :
+                  <Button
                   size='l'
                   appearance='positive'
                   mode='outline'
+                  onClick={()=>{setBuy(!buy)}}
                 >
                   Купить билет
                 </Button>
@@ -141,8 +144,8 @@ function EventPage(props: EventPagetypes) {
             <IconButton onClick={()=>{changeFav()}}>
               {isLiked ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>
-            <Cell indicator={<Counter>{data.amount}</Counter>}>
-              Всего билеты
+            <Cell indicator={<Counter>{data.amount-data.minted || data.amount}</Counter>}>
+              Всего билетов
             </Cell>
           </div>
         </div>

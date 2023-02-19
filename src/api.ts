@@ -1,4 +1,4 @@
-import { EventType } from "./types/event"
+import { EventType } from './types/event'
 
 export type APIEventType = {
   _id: string
@@ -41,5 +41,7 @@ export const api = {
 
   createExchange: (data: ExchangeRequest) => fetch('https://levandrovskiy.ru/api/exchange', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then((response) => response.json()),
 
-  getTicket: (event_id: string, user_id: string) => fetch('https://levandrovskiy.ru/api/ticket', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id, event_id }) }).then((response) => response.json()),
+  createTicket: (event_id: string, user_id: string) => fetch('https://levandrovskiy.ru/api/ticket', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user_id, event_id }) }).then((response) => response.json()),
+
+  getQr: (wallet: string, ticket: string) => fetch(`https://levandrovskiy.ru/api/getQR?wallet=${wallet}&ticket=${ticket}`, { method: 'GET', headers: { 'Content-Type': 'application/json' } }).then((response) => response.json())
 }

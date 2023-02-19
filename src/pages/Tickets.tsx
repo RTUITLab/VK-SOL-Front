@@ -26,6 +26,7 @@ function Tickets({ nav }: PanelProps) {
                 <React.Fragment key={e._id}>
                   <Cell >
                     <Ticket
+                      id={e._id}
                       ticket={e.mint}
                       with_qr={true}
                       image={e.url}
@@ -33,6 +34,7 @@ function Tickets({ nav }: PanelProps) {
                       date={t_event.date.split('T')[0]}
                       time={t_event.date.split('T')[1]}
                       address={t_event.place}
+                      forSell={e.for_sell}
                     />
                   </Cell>
                   <Spacing size={16} />

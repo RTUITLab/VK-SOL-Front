@@ -9,7 +9,7 @@ import './eventcard.css'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '../../api'
 type EventCardprops = {
-  image: string,
+  image?: string,
   eventName: string,
   description: string,
   date: string,
@@ -63,11 +63,11 @@ function EventCard(props: EventCardprops) {
       link: 'https://vk.com/app6909581'
     })
   }
-
+  console.log(props.image, props.eventName);
   return (
     <Card mode='shadow'>
       <div className='event-card'>
-        <img className='event-card__image' src={props.image} />
+        <img className='event-card__image' src={props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg'} />
         <div className='event-card__info'>
           <Title level={'2'} weight='medium'>
             {props.eventName}
@@ -125,9 +125,10 @@ function EventCard(props: EventCardprops) {
               <Icon28ShareOutline />
             </IconButton>}
           </div>
-          <Button size='l' mode='outline' onClick={handleMore}>
+          {props.image ? <Button size='l' mode='outline' onClick={handleMore}>
             Подробнее
-          </Button>
+            </Button> : null}
+
         </div>
       </div>
 

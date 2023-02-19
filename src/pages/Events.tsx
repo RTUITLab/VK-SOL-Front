@@ -37,7 +37,7 @@ function Events({ nav }: PanelProps) {
               key={item._id}
               eventName={item.name}
               description={item.description}
-              image={`https://levandrovskiy.ru${item.cover}`}
+              image={item.cover}
               address={item.place}
               time={item.date.split('T')[1]}
               date={item.date.split('T')[0]}

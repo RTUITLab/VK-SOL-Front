@@ -47,7 +47,7 @@ export const Home: React.FC<PanelProps> = ({ nav }: PanelProps) => {
                 <EventCard
                   id={e._id}
                   time={e.date.split('T')[1]}
-                  image={'https://levandrovskiy.ru' + e.cover}
+                  image={e.cover}
                   date={e.date.split('T')[0]}
                   description={e.description}
                   eventName={e.name} address={e.place}

@@ -40,7 +40,7 @@ function Favorites({ nav }: PanelProps) {
 
       {data?.map(card => (
         <>
-          <EventCard image={'https://levandrovskiy.ru' + card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>
+          <EventCard image={card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>
           <Spacing></Spacing>
         </>
       ))}

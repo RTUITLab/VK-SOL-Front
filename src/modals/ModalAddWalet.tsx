@@ -1,4 +1,4 @@
-import { back } from '@cteamdev/router';
+import { back, useParams } from '@cteamdev/router';
 import { useAtomValue } from '@mntm/precoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Icon24Done, Icon24Error } from '@vkontakte/icons';
@@ -10,7 +10,7 @@ import { eventIdAtom } from '../store';
 export const ModalAddWalet: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
 
     const [walletId, setWalletId] = useState('')
-    const eventId = useAtomValue(eventIdAtom)
+    const eventId = useParams().id
 
     const { mutate, error } = useMutation({ mutationKey: ['add_to_whitelist'], mutationFn: () => api.addToWhiteList(eventId, walletId), onSuccess: handleSuccess, onError: handleError })
 

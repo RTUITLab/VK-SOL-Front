@@ -58,10 +58,23 @@ function EventCard(props: EventCardprops) {
     viewedMutations.mutate(props.id)
     push(`/current_event?id=${props.id}`)
   }
-  function handleShare() {
-    bridge.send('VKWebAppShare', {
-      link: 'https://vk.com/app6909581'
-    })
+  function handleShare(name: string, image: string) {
+    // bridge.send('VKWebAppShare', {
+    //   link: 'https://vk.com/app6909581'
+    // })
+    bridge.send('VKWebAppShowWallPostBox', {
+      message: `Приглашаю всех на ${name}, куда можно купить уникальный NFT-билет с помощью приложения NFT Tickets!\n${image}`,
+      attachments: `https://vk.com/app51558130_162891708`
+      })
+      .then((data) => { 
+        if (data.post_id) {
+          // Запись размещена
+        }
+      })
+      .catch((error) => {
+        // Ошибка
+        console.log(error);
+      });
   }
   
   return (
@@ -123,7 +136,7 @@ function EventCard(props: EventCardprops) {
             <IconButton onClick={() => { mutate() }}>
               {data ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>
-            {!props.owner && <IconButton onClick={handleShare}>
+            {!props.owner && <IconButton onClick={() => handleShare(props.eventName, props.image ? 'https://levandrovskiy.ru' + props.image : 'http://levandrovskiy.ru/img/MJGSJ7cysAs.jpg')}>
               <Icon28ShareOutline />
             </IconButton>}
           </div>

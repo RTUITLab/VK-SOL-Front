@@ -28,14 +28,11 @@ function Favorites({ nav }: PanelProps) {
         })
         .catch()
 
-      const cards = ids?.map((id) => fetch(`https://levandrovskiy.ru/api/event/${id}`).then(data => data.json()).then((d) => {
-        console.log(ids)
-        console.log(d)
-        return d
-      })) || []
+      const cards = ids?.map((id) => fetch(`https://levandrovskiy.ru/api/event/${id}`).then(data => data.json())) || []
       
+      const res = await Promise.all(cards)
 
-      return (await Promise.all(cards)).filter((d) => !!d)
+      return res.filter((d) => !!d)
     }
   })
 

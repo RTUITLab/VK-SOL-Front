@@ -158,7 +158,7 @@ function EventPage(props: EventPagetypes) {
               <IconButton onClick={() => { changeFav() }}>
                 {isLiked ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
               </IconButton>
-              <Cell indicator={<Counter>{`${'0' || data.minted}/${data.amount}`}</Counter>}>
+              <Cell indicator={<Counter>{`${data.minted || '0'}/${data.amount}`}</Counter>}>
                 Билетов
               </Cell>
             </div>

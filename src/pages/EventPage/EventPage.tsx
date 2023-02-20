@@ -144,12 +144,12 @@ function EventPage(props: EventPagetypes) {
                   : buy ? <>Подождите, пока обработается платёж</> :
                     ((user.walletAddress) ? user.isAdmin ? null : <Button
                       size='l'
-                      appearance='positive'
+                      appearance='positive' 
                       mode='outline'
                       onClick={() => { setBuy(!buy) }}
                     >
                       Купить билет
-                    </Button> : <Banner size='s' header='Для покупки необходимо подключить кошелёк'></Banner>)
+                    </Button> : ((data.minted||0)>=data.amount) ? <Banner size='s' header='Билеты закончились'></Banner> : <Banner size='s' header='Для покупки необходимо подключить кошелёк'></Banner>)
               }
 
 

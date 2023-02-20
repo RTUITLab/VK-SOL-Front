@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import bridge from '@vkontakte/vk-bridge'
-import { Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing } from '@vkontakte/vkui'
+import { Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
 import React from 'react'
 import EventCard from '../components/eventCard/EventCard'
 
 function Favorites({ nav }: PanelProps) {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['allLikes'], queryFn: async () => {
       const likesKeys = await bridge.send('VKWebAppStorageGetKeys', {
         count: 30, offset: 0
@@ -38,12 +38,12 @@ function Favorites({ nav }: PanelProps) {
       <PanelHeader><PanelHeaderContent>Избранное</PanelHeaderContent></PanelHeader>
       <Spacing />
 
-      {data?.map(card => (
+      {isLoading ? <Spinner size={'large'} /> : data?.length>0 && data?.map(card => (
         <>
           <EventCard image={card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>
           <Spacing></Spacing>
         </>
-      ))}
+      )) || <div style={{ textAlign: 'center', margin: 20 }}>{'Вы пока ничего не добавили в избранное'}</div>}
 
     </Panel>
   )

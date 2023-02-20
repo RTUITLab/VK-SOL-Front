@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import bridge from '@vkontakte/vk-bridge'
-import { Group, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
+import { Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
 import React from 'react'
-import { api } from '../api'
 import EventCard from '../components/eventCard/EventCard'
 
 function Favorites({ nav }: PanelProps) {
@@ -39,21 +38,18 @@ function Favorites({ nav }: PanelProps) {
       return (await Promise.all(cards)).filter((d) => !!d)
     }
   })
-  console.log(data)
 
   return (
     <Panel nav={nav}>
       <PanelHeader><PanelHeaderContent>Избранное</PanelHeaderContent></PanelHeader>
       <Spacing /> 
 
-      {isLoading ? <Spinner size={'large'} /> : data?.length>0 && data?.map(card => (
-        <>
-        <div key={card._id}>
+      {isLoading ? <Spinner size={'large'} /> : data && data?.length>0 && data?.map(card => (
+        <React.Fragment key={card._id}>
           <EventCard image={card.cover} eventName={card.name} description={card.description} date={card.date.split('T')[0]} time={card.date.split('T')[1]} address={card.place} id={card._id} key={card._id}></EventCard>
           <Spacing></Spacing>
-        </div>
-        </>
-      )) || <div style={{ textAlign: 'center', margin: 20 }}>{'Вы пока ничего не добавили в избранное'}</div>}
+        </React.Fragment>
+      )) || <div style={{ textAlign: 'center', margin: 20 }}>{'В избранном пока ничего нет'}</div>}
 
     </Panel>
   )

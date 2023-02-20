@@ -21,7 +21,7 @@ function EventPage(props: EventPagetypes) {
   const [buy, setBuy] = useState(false)
 
   const { data, isLoading } = useQuery<APIEventType>({ queryKey: ['current_event', eventId], queryFn: () => api.getEventById(eventId) })
-  const { mutate, error } = useMutation({ mutationKey: ['create_ticket'], mutationFn: () => api.createTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
+  const { mutate, error, isLoading: ticketCreating } = useMutation({ mutationKey: ['create_ticket'], mutationFn: () => api.createTicket(eventId, user.walletAddress), onSuccess: handleSuccess, onError: handleError })
   const { data: isLiked, isLoading: loadLike } = useQuery({
     queryKey: ['like', { id: data?._id }], queryFn: () => bridge.send('VKWebAppStorageGet', {
       keys: ['liked' + data?._id.toString()]
@@ -138,6 +138,7 @@ function EventPage(props: EventPagetypes) {
                     appearance='accent'
                     mode='secondary'
                     onClick={handleCreateTicket}
+                    loading={ticketCreating}
                   >
                     Получить билет
                   </Button>

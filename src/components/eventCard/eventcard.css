@@ -14,6 +14,8 @@
 }
 
 .event-card__info{
+    max-width: fit-content;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -26,9 +28,10 @@
 }
 
 .event-card__location{
+    text-overflow: ellipsis;
     text-decoration: none;
-
 }
+
 .owner__buttons{
     display: flex;
     flex-direction: row;

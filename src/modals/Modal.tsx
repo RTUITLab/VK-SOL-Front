@@ -31,8 +31,6 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
 
 
   function handleCreate() {
-
-
     const data: EventType = {
       name,
       description,
@@ -53,15 +51,12 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
     }
 
     if (data.user_id) {
-      console.log(data)
-
       mutate(data)
       setError('')
       back()
     } else {
       setError('Привяжите кошелёк на вкладке Профиль')
     }
-
   }
 
   return (
@@ -73,8 +68,8 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
       {
         isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
 
-          <FormLayout>
-          <Banner before={<Icon28InfoCircle />} header='Создание мероприятие может занять некоторе время, около 43 секунд'></Banner>
+          <FormLayout onSubmit={handleCreate}>
+          <Banner before={<Icon28InfoCircle />} header='Создание мероприятие может занять некоторе время'></Banner>
           <FormItem top='Название мероприятия'>
               <Input
               required
@@ -143,7 +138,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
                       />}
 
           <FormItem>
-              <Button size='l' mode='primary' onClick={handleCreate}>
+              <Button size='l' mode='primary' type='submit'>
               Создать мероприятие
               </Button>
             </FormItem>

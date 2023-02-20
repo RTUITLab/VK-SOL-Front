@@ -36,7 +36,7 @@ function Favorites({ nav }: PanelProps) {
   return (
     <Panel nav={nav}>
       <PanelHeader><PanelHeaderContent>Избранное</PanelHeaderContent></PanelHeader>
-      <Spacing />
+      <Spacing /> 
 
       {isLoading ? <Spinner size={'large'} /> : data?.length>0 && data?.map(card => (
         <>

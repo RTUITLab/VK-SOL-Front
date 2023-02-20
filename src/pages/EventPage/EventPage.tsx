@@ -129,10 +129,10 @@ function EventPage(props: EventPagetypes) {
                   </Headline>
 
                 </a>
-
+                
               </MiniInfoCell>
               {
-                (data.white_list.includes(user.walletAddress) && !user.isAdmin) ?
+                ((data.minted||0)>=data.amount) ? <Banner size='s' header='Билеты закончились' /> : (data.white_list.includes(user.walletAddress) && !user.isAdmin) ?
                   <Button
                     size='l'
                     appearance='accent'
@@ -142,14 +142,14 @@ function EventPage(props: EventPagetypes) {
                     Получить билет
                   </Button>
                   : buy ? <>Подождите, пока обработается платёж</> :
-                    ((user.walletAddress) ? user.isAdmin ? null : <Button
+                    (user.isAdmin ? null : (user.walletAddress) ? <Button
                       size='l'
                       appearance='positive' 
                       mode='outline'
                       onClick={() => { setBuy(!buy) }}
                     >
                       Купить билет
-                    </Button> : ((data.minted||0)>=data.amount) ? <Banner size='s' header='Билеты закончились'></Banner> : <Banner size='s' header='Для покупки необходимо подключить кошелёк'></Banner>)
+                    </Button> :  <Banner size='s' header='Для покупки необходимо подключить кошелёк' />)
               }
 
 

@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { api, APIEventType } from '../../api'
 import { eventIdAtom, userAtom } from '../../store'
 import './eventpage.css'
-
+import { Icon24ClockOutline } from '@vkontakte/icons'
 type EventPagetypes = {
   nav: string
 }
@@ -35,13 +35,13 @@ function EventPage(props: EventPagetypes) {
   const successSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Done />}
-  >
+                          >
     Билет успешно приобретён
   </Snackbar>
   const errorSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Error />}
-  >
+                        >
     Ошибка при приобретении билета
   </Snackbar>
 
@@ -76,7 +76,7 @@ function EventPage(props: EventPagetypes) {
       setSnackbar(<Snackbar
         onClose={() => setSnackbar(null)}
         before={<Icon24Done />}
-      >
+                  >
         Адрес успешно скопирован
       </Snackbar>)
     )
@@ -142,13 +142,13 @@ function EventPage(props: EventPagetypes) {
                   >
                     Получить билет
                   </Button>
-                  : buy ? <>Подождите, пока обработается платёж</> :
+                  : buy ? <Banner before={<Icon24ClockOutline />} header='Подождите, пока создатель мероприятия внесет вас в список' /> :
                     (user.isAdmin ? null : (user.walletAddress) ? <Button
                       size='l'
                       appearance='positive' 
                       mode='outline'
                       onClick={() => { setBuy(!buy) }}
-                    >
+                                                                  >
                       Купить билет
                     </Button> :  <Banner size='s' header='Для покупки необходимо подключить кошелёк' />)
               }
@@ -176,7 +176,7 @@ function EventPage(props: EventPagetypes) {
             {data && (data.user_id === user.walletAddress && user.isAdmin === true) ? <CellButton
               onClick={() => push(`/events/?modal=wallet&id=${eventId}`)}
               before={<Icon28AddOutline />}
-            >Добавить</CellButton> : null}
+                                                                                      >Добавить</CellButton> : null}
           </Div>
           {
             data && data.white_list.map((item, index) => <SimpleCell key={index} onClick={copy} after={<Icon28CopyOutline />}>

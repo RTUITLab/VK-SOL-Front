@@ -65,8 +65,8 @@ function EventCard(props: EventCardprops) {
     bridge.send('VKWebAppShowWallPostBox', {
       message: `Приглашаю всех на ${name}, куда можно купить уникальный NFT-билет с помощью приложения NFT Tickets!\n${image}`,
       attachments: `https://vk.com/app51558130_162891708`
-      })
-      .then((data) => { 
+    })
+      .then((data) => {
         if (data.post_id) {
           // Запись размещена
         }
@@ -76,7 +76,7 @@ function EventCard(props: EventCardprops) {
         console.log(error);
       });
   }
-  
+
   return (
     <Card mode='shadow'>
       <div className='event-card'>
@@ -116,9 +116,9 @@ function EventCard(props: EventCardprops) {
               target={'_blank'}
               href={`https://yandex.ru/maps/213/moscow/search/${props.address}`} rel='noreferrer'
             >
-              <Text weight='semibold'>
+              <span style={{ color: '#2688EB', maxWidth: '100px' }} >
                 {props.address}
-              </Text>
+              </span>
 
             </a>
 
@@ -142,7 +142,7 @@ function EventCard(props: EventCardprops) {
           </div>
           {props.image ? <Button size='l' mode='outline' onClick={handleMore}>
             Подробнее
-            </Button> : null}
+          </Button> : null}
 
         </div>
       </div>

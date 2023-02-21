@@ -124,9 +124,9 @@ function EventPage(props: EventPagetypes) {
                   target={'_blank'}
                   href={`https://yandex.ru/maps/213/moscow/search/${data.place}`} rel='noreferrer'
                 >
-                  <Headline style={{ color: '#2688EB', maxWidth: '100px' }} weight='semibold'>
+                  <span style={{ color: '#2688EB', maxWidth: '100px' }} >
                     {data.place}
-                  </Headline>
+                  </span>
 
                 </a>
                 

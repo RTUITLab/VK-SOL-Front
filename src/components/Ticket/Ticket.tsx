@@ -29,14 +29,14 @@ function Ticket(props: TicketProps) {
   const successSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Done />}
-                          >
+  >
 
     Билет успешно выставлен на обмен
   </Snackbar>
   const errorSnackbar = <Snackbar
     onClose={() => setSnackbar(null)}
     before={<Icon24Error />}
-                        >
+  >
     Ошибка при выставении на обмен
   </Snackbar>
 
@@ -62,7 +62,7 @@ function Ticket(props: TicketProps) {
     <article className='ticket'>
       <div className='ticket__info'>
         <Title level={'2'} weight='medium'>
-          <div style={{ textOverflow: 'ellipsis',whiteSpace: 'nowrap', overflow:'hidden' }}>{props.eventName}</div>
+          <div style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{props.eventName}</div>
         </Title>
         <div className='event-card__date'>
           <MiniInfoCell
@@ -87,9 +87,9 @@ function Ticket(props: TicketProps) {
             target={'_blank'}
             href={`https://yandex.ru/maps/213/moscow/search/${props.address}`} rel='noreferrer'
           >
-            <Text weight='semibold'>
-              <div style={{ textOverflow: 'ellipsis',whiteSpace: 'nowrap', overflow:'hidden' }}>{props.address}</div>
-            </Text>
+            <span style={{ color: '#2688EB', maxWidth: '100px' }} >
+              {props.address}
+            </span>
           </a>
         </MiniInfoCell>
         {props.with_qr ?
@@ -99,10 +99,10 @@ function Ticket(props: TicketProps) {
             appearance='negative'
             mode='secondary'
             onClick={handleClearTrade}
-                           >
+          >
             Убрать с обмена
           </Button> :
-          <Button
+            <Button
               size='m'
               style={{ width: '150px' }}
               appearance='accent'

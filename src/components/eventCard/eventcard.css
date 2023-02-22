@@ -35,7 +35,7 @@
 .owner__buttons{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;;
+    justify-content: flex-end;
 }
 
 .event-card__buttons{

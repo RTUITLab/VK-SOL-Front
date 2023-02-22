@@ -64,7 +64,7 @@ function EventCard(props: EventCardprops) {
     // })
     bridge.send('VKWebAppShowWallPostBox', {
       message: `Приглашаю всех на ${name}, куда можно купить уникальный NFT-билет с помощью приложения NFT Tickets!\n${image}`,
-      attachments: `https://vk.com/app51558130_162891708`
+      attachments: 'https://vk.com/app51558130_162891708'
     })
       .then((data) => {
         if (data.post_id) {
@@ -73,8 +73,8 @@ function EventCard(props: EventCardprops) {
       })
       .catch((error) => {
         // Ошибка
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
 
   return (
@@ -127,12 +127,12 @@ function EventCard(props: EventCardprops) {
 
         <div className='event-card__buttons'>
           <div className='owner__buttons'>
-            {props.owner && <IconButton onClick={handleDelete}>
+            {/*props.owner && <IconButton onClick={handleDelete}>
               <Icon28DeleteOutline />
-            </IconButton>}
-            {props.owner && <IconButton onClick={handleEdit}>
+              </IconButton>*/}
+            {/*props.owner && <IconButton onClick={handleEdit}>
               <Icon28EditOutline />
-            </IconButton>}
+            </IconButton>*/}
             <IconButton onClick={() => { mutate() }}>
               {data ? <Icon28LikeFillRed /> : <Icon28LikeOutline />}
             </IconButton>

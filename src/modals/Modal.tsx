@@ -21,6 +21,7 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
   const user = useAtomValue(userAtom)
 
   function handlaSuccess() {
+
     console.log('yes')
   }
   function handlaError() {
@@ -68,84 +69,84 @@ export const Modal: React.FC<ModalCardProps> = ({ nav }: ModalCardProps) => {
       {
         isLoading ? <Spinner size={'large'} style={{ margin: '20px 0' }} /> :
 
-          <FormLayout onSubmit={handleCreate}>
-          <Banner before={<Icon28InfoCircle />} header='Создание мероприятия может занять некоторое время'></Banner>
-          <FormItem top='Название мероприятия'>
-              <Input
-              required
-              maxLength={180}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type={'text'}
-              placeholder='Введите название'
-            />
-            </FormItem>
-          <FormItem top='Описание мероприятия'>
-              <Input
-              required
-              maxLength={250}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              type={'text'}
-              placeholder='Введите описание'
-            />
-            </FormItem>
-          <FormItem top='Адрес мероприятия'>
-              <Input
-              required
-              value={place}
-              onChange={(e) => setPlace(e.target.value)}
-              type={'text'}
-              placeholder='Введите адрес'
-            />
-            </FormItem>
-          <FormItem top='Количество билетов'>
-              <Input
-              required
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
-              min={1}
-              max={10}
-              type={'number'}
-              placeholder='Введите количество'
-            />
-            </FormItem>
-          <SplitLayout>
-              <SplitCol width={'50%'}>
-              <FormItem top='Дата мероприятия'>
-                  <Input
-                  required
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  type={'date'}
-                  min={`${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-${new Date().getDate()}`}
-                  placeholder='Введите дату'
-                />
-                </FormItem>
-            </SplitCol>
-              <SplitCol width={'50%'}>
-              <FormItem top='Время мероприятия'>
-                  <Input
-                  required
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  type={'time'}
-                  placeholder='Введите время'
-                />
-                </FormItem>
-            </SplitCol>
-            </SplitLayout>
-          {error && <Banner
-              header='Ошибка'
-              subheader={error}
-                      />}
+        <FormLayout onSubmit={handleCreate}>
+            <Banner before={<Icon28InfoCircle />} header='Создание мероприятия может занять некоторое время'></Banner>
+            <FormItem top='Название мероприятия'>
+            <Input
+                required
+                maxLength={180}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type={'text'}
+                placeholder='Введите название'
+              />
+          </FormItem>
+            <FormItem top='Описание мероприятия'>
+            <Input
+                required
+                maxLength={250}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                type={'text'}
+                placeholder='Введите описание'
+              />
+          </FormItem>
+            <FormItem top='Адрес мероприятия'>
+            <Input
+                required
+                value={place}
+                onChange={(e) => setPlace(e.target.value)}
+                type={'text'}
+                placeholder='Введите адрес'
+              />
+          </FormItem>
+            <FormItem top='Количество билетов'>
+            <Input
+                required
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+                min={1}
+                max={10}
+                type={'number'}
+                placeholder='Введите количество'
+              />
+          </FormItem>
+            <SplitLayout>
+            <SplitCol width={'50%'}>
+                <FormItem top='Дата мероприятия'>
+                <Input
+                    required
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    type={'date'}
+                    min={`${new Date().getFullYear()}-${(new Date().getMonth()+1).toString().padStart(2, '0')}-${new Date().getDate()}`}
+                    placeholder='Введите дату'
+                  />
+              </FormItem>
+              </SplitCol>
+            <SplitCol width={'50%'}>
+                <FormItem top='Время мероприятия'>
+                <Input
+                    required
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    type={'time'}
+                    placeholder='Введите время'
+                  />
+              </FormItem>
+              </SplitCol>
+          </SplitLayout>
+            {error && <Banner
+            header='Ошибка'
+            subheader={error}
+                    />}
 
-          <FormItem>
-              <Button size='l' mode='primary' type='submit'>
-              Создать мероприятие
+            <FormItem>
+            <Button size='l' mode='primary' type='submit'>
+                Создать мероприятие
               </Button>
-            </FormItem>
-        </FormLayout>
+          </FormItem>
+          </FormLayout>
       }
     </ModalCard>
   )

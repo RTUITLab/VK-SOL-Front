@@ -1,10 +1,9 @@
-import React from 'react'
-import { Cell, Group, List, Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
-import { back } from '@cteamdev/router'
-import Ticket from '../components/Ticket/Ticket'
-import { useQuery } from '@tanstack/react-query'
-import { api } from '../api'
 import { useAtomValue } from '@mntm/precoil'
+import { useQuery } from '@tanstack/react-query'
+import { Cell, Group, List, Panel, PanelHeader, PanelHeaderContent, PanelProps, Spacing, Spinner } from '@vkontakte/vkui'
+import React from 'react'
+import { api } from '../api'
+import Ticket from '../components/Ticket/Ticket'
 import { userAtom } from '../store'
 
 function Tickets({ nav }: PanelProps) {
@@ -21,8 +20,9 @@ function Tickets({ nav }: PanelProps) {
         ? <Spinner size={'large'} style={{ margin: '20px 0' }} />
         : <Group>
           <List>
-            {tickets.data.filter((item: any) => item.user_id === user.walletAddress).map((e: any) => {
+            {tickets.data.filter((item: any) => item.user_id === user.walletAddress).filter((e)=>e).map((e: any, ind) => {
               const t_event = events.data.find((i: any) => i._id === e.event_id)
+              if (!t_event?.name) return <React.Fragment key={ind}></React.Fragment>
               return (
                 <React.Fragment key={e._id}>
                   <Cell >
